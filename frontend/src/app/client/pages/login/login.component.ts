@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
     private router: Router,
+    private formBuilder: FormBuilder,
+    public authService: AuthService,
   ) { }
 
 
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('username', user.username);
         localStorage.setItem('role', user.role);
         localStorage.setItem('token', user.token);
-        this.router.navigate(['/']);
+        this.router.navigate([localStorage.getItem('role') === 'admin' ? '/admin' : '/']);
       },
       (error: any) => {
         this.errorMessage = error || 'username or password is wrong';

@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center mt-36">
+<div *ngIf="!this.authService.isLoggedIn()" class="flex items-center justify-center mt-36">
   <div class="p-5 bg-gray-800 rounded-xl overflow-hidden w-96 m-5">
     <div class="bg-gray-800 outline-hidden border-0">
       <h3 class="text-center font-light">Login</h3>
