@@ -1,0 +1,49 @@
+<div class="flex items-center justify-center mt-36">
+  <div class="p-5 bg-gray-800 rounded-xl overflow-hidden w-96 m-5">
+    <div class="bg-gray-800 outline-hidden border-0">
+      <h3 class="text-center font-light">Login</h3>
+    </div>
+
+    <p *ngIf="errorMessage" class="mb-1 text-center">{{errorMessage | titlecase}}</p>
+
+    <form [formGroup]="loginForm" class="py-4 text-sm" (ngSubmit)="onSubmit()">
+
+      <div>
+        <label class="mx-1 mb-1 text-start" for="username">Username</label>
+
+        <input type="text" formControlName="username" class="py-2 w-9/12 text-black" id="username"
+          aria-describedby="username" autocomplete="on">
+
+        <div *ngIf="username.touched && username.invalid">
+          <p *ngIf="username.errors?.required">Username is required.</p>
+          <p *ngIf="username.errors?.['minlength']">Username length must be greater than 4 characters. </p>
+          <p *ngIf="username.errors?.['maxlength']">Username must be at most 30 characters long. </p>
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+        <label class="mx-1 mb-1 text-start" for="password">Password</label>
+
+        <input type="password" formControlName="password" class="py-2 mt-3 w-9/12 text-black" id="password"
+          autocomplete="off">
+
+          <div *ngIf="password.touched && password.invalid">
+            <p *ngIf="password.errors?.['required']">Password is required</p>
+            <p *ngIf="password.errors?.['minlength']">Password length must be greater than 8 characters.</p>
+            <p *ngIf="password.errors?.['maxlength']">Password must be at most 20 characters long.</p>
+            <p *ngIf="password.errors?.['pattern']">
+              A password should be alphanumeric and
+              contain at least one capital
+              letter and special character.</p>
+          </div>
+      </div>
+
+      <button type="submit" class="sign-up py-2 mt-3 w-full text-center text-white"
+        [ngStyle]="{'opacity': loginForm.invalid ? '0.7' : '1'}" [disabled]="loginForm.invalid">Login</button>
+
+
+    </form>
+
+  </div>
+</div>

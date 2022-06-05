@@ -1,0 +1,19 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "backend:install": "cd backend && npm install",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:build": "cd backend && npm run build",
+    "frontend:install": "cd frontend && npm install",
+    "frontend:start": "cd frontend && npm start",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:test": "cd frontend && npm run test"
+  },
+  "author": "",
+  "license": "ISC"
+}

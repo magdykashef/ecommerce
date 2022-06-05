@@ -1,0 +1,26 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        Ecommerce
+    </a>
+
+    <a class="p-link layout-menu-button layout-topbar-button" href="#" (click)="admin.toggleMenu($event)">
+        <i class="pi pi-bars"></i>
+    </a>
+
+    <a class="p-link layout-topbar-menu-button layout-topbar-button" href="#" (click)="admin.toggleTopMenu($event)">
+        <i class="pi pi-ellipsis-v"></i>
+    </a>
+
+    <div *ngIf="username" class="layout-topbar-menu"
+        [ngClass]="{'layout-topbar-menu-mobile-active':admin.topMenuActive}">
+
+        <i class="pi pi-user"></i>
+        <span style="margin: 0 0 0 5px;">{{ username | titlecase}}</span>
+
+        <a class="p-link layout-topbar-button">
+            <i class="pi pi-power-off"></i>
+            <span>logout</span>
+        </a>
+    </div>
+
+</div>
