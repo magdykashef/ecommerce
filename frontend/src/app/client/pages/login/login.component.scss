@@ -1,3 +1,42 @@
-.sign-up {
+.global-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.card {
+  background-color: #202125;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-body {
+  background-color: #202125;
+  outline: 0;
+  border: 0;
+}
+
+form {
+  padding-top: 10px;
+  font-size: 16px;
+  // margin-top: 30px;
+}
+
+.card-title {
+  font-weight: 300;
+}
+
+
+.login-form {
+  width: 430px;
+  margin: 20px;
+}
+
+.submit {
+  text-align: center;
+  color: white;
   background: linear-gradient(to right, #f7585e 0%, #fe8b3b 100%);
+  font-size: 20px;
+  border-radius: 5px;
 }

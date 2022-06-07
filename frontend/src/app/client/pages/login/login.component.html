@@ -1,46 +1,46 @@
-<div *ngIf="!this.authService.isLoggedIn()" class="flex items-center justify-center mt-36">
-  <div class="p-5 bg-gray-800 rounded-xl overflow-hidden w-96 m-5">
-    <div class="bg-gray-800 outline-hidden border-0">
-      <h3 class="text-center font-light">Login</h3>
+<div *ngIf="!this.authService.isLoggedIn()" class="global-container">
+  <div class="card login-form">
+    <div class="card-body">
+      <h3 class="cart-titel text-center">Login</h3>
     </div>
 
-    <p *ngIf="errorMessage" class="mb-1 text-center">{{errorMessage | titlecase}}</p>
+    <p *ngIf="errorMessage" class="col-12 py-2 px-2 text-center alert alert-danger alert-dismissible fade show"
+      role="alert">{{errorMessage | titlecase}}</p>
 
-    <form [formGroup]="loginForm" class="py-4 text-sm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" class="pb-4" (ngSubmit)="onSubmit(); submit.disabled=true">
 
-      <div>
-        <label class="mx-1 mb-1 text-start" for="username">Username</label>
+      <div class="form-group grid justify-content-start mb-3">
+        <label class="col-12 sm:col-3 p-0 pb-1 text-start" for="email">Email</label>
 
-        <input type="text" formControlName="username" class="py-2 w-9/12 text-black" id="username"
-          aria-describedby="username" autocomplete="on">
+        <input type="email" formControlName="email" class="col-12 sm:col-8 py-2" id="email" aria-describedby="email"
+          autocomplete="on">
 
-        <div *ngIf="username.touched && username.invalid">
-          <p *ngIf="username.errors?.required">Username is required.</p>
-          <p *ngIf="username.errors?.['minlength']">Username length must be greater than 4 characters. </p>
-          <p *ngIf="username.errors?.['maxlength']">Username must be at most 30 characters long. </p>
+        <div class="my-2" *ngIf="email.touched && email.invalid">
+          <p *ngIf="email.errors?.required">Email is required</p>
+          <p *ngIf="email.errors?.['email']">Please enter a valid Email</p>
         </div>
 
       </div>
 
-      <div class="mb-3">
-        <label class="mx-1 mb-1 text-start" for="password">Password</label>
+      <div class="form-group mb-3 grid justify-content-start align-items-center">
+        <label class="col-12 sm:col-3 p-0 pb-1 d-inline-block text-start" for="password">Password</label>
 
-        <input type="password" formControlName="password" class="py-2 mt-3 w-9/12 text-black" id="password"
-          autocomplete="off">
+        <input type="password" formControlName="password" class="col-12 sm:col-8 py-2" id="password" autocomplete="off">
 
-          <div *ngIf="password.touched && password.invalid">
-            <p *ngIf="password.errors?.['required']">Password is required</p>
-            <p *ngIf="password.errors?.['minlength']">Password length must be greater than 8 characters.</p>
-            <p *ngIf="password.errors?.['maxlength']">Password must be at most 20 characters long.</p>
-            <p *ngIf="password.errors?.['pattern']">
-              A password should be alphanumeric and
-              contain at least one capital
-              letter and special character.</p>
-          </div>
+        <div class="mt-2" *ngIf="password.touched && password.invalid">
+          <p *ngIf="password.errors?.['required']">Password is required</p>
+          <p *ngIf="password.errors?.['minlength']">Password length must be greater than 8 characters</p>
+          <p *ngIf="password.errors?.['maxlength']">Password must be at most 20 characters long</p>
+          <p *ngIf="password.errors?.['pattern']">
+            A password should be alphanumeric and
+            contain at least one capital
+            letter and special character</p>
+        </div>
       </div>
 
-      <button type="submit" class="sign-up py-2 mt-3 w-full text-center text-white"
-        [ngStyle]="{'opacity': loginForm.invalid ? '0.7' : '1'}" [disabled]="loginForm.invalid">Login</button>
+      <button #submit type="submit" class="submit col-12 py-2 mt-3 text-center"
+        [ngStyle]="{'opacity': loginForm.invalid ? '0.7' : '1'}"
+        [disabled]="loginForm.invalid">Login</button>
 
 
     </form>

@@ -13,23 +13,42 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    ) { }
+  ) { }
 
-  login(username: string, password:string): Observable<User | null>{
-    return this.http.post<User>(`${environment.api}/login`,{username, password});
+  login(email: string, password: string): Observable<User | null> {
+    return this.http.post<User>(`${environment.api}/login`, { email, password });
   }
 
-  isLoggedIn(): boolean{
-    return !!(localStorage.getItem('username') && localStorage.getItem('role') && localStorage.getItem('token'));
+  register(user:User): Observable<User | null>{
+    return this.http.post<User>(`${environment.api}/register`, {
+        user_name: user.user_name,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        password: user.password,
+        address: user.address,
+        phone: user.phone
+    });
+}
+
+  isLoggedIn(): boolean {
+    return !!(
+      localStorage.getItem('user_id') && 
+      localStorage.getItem('user_name') && 
+      localStorage.getItem('status') && 
+      localStorage.getItem('role') && 
+      localStorage.getItem('token'));
   }
 
-  logout(){
+  logout() {
     this.resetCurrentUser();
     this.router.navigate(['/']);
   }
 
-  private resetCurrentUser(){
-    localStorage.removeItem('username');
+  private resetCurrentUser() {
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('status');
     localStorage.removeItem('token');
     localStorage.removeItem('role');
   }

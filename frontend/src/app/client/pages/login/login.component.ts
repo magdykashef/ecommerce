@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../security/auth.service';
-import { User } from 'src/app/shared/models/user';
+import { User } from '../../../shared/models/user';
 
 @Component({
   selector: 'app-login',
@@ -30,10 +30,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginForm = this.formBuilder.group({
-      username: ['', [
+      email: ['', [
         Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(30),
+        Validators.email
       ]],
       password: ['', [
         Validators.required,
@@ -46,21 +45,23 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-    this.authService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       (user: User) => {
-        localStorage.setItem('username', user.username);
+        localStorage.setItem('user_id', user.user_id);
+        localStorage.setItem('user_name', user.user_name);
+        localStorage.setItem('status', user.status);
         localStorage.setItem('role', user.role);
         localStorage.setItem('token', user.token);
         this.router.navigate([localStorage.getItem('role') === 'admin' ? '/admin' : '/']);
       },
       (error: any) => {
-        this.errorMessage = error || 'username or password is wrong';
+        this.errorMessage = error || 'Email or Password is wrong';
       }
     )
   }
 
-  get username() {
-    return this.loginForm.get('username');
+  get email() {
+    return this.loginForm.get('email');
   }
 
   get password() {
