@@ -1,1 +1,103 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a routerLink="/" class="navbar-brand fw-bold fs-4 mt-2">Ecommerce</a>
+    <button
+      (click)="dropdownNavbar = !dropdownNavbar"
+      class="navbar-toggler"
+      type="button"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      [ngStyle]="{
+        display: dropdownNavbar ? 'block' : 'none'
+      }"
+      class="collapse navbar-collapse"
+    >
+      <form class="d-flex mx-auto mt-2" (submit)="$event.preventDefault()">
+        <input
+          name="search"
+          id="search"
+          #search
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+        />
+        <button
+          (click)="Search(search.value)"
+          class="btn btn-outline-primary shadow-sm"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+      <ul
+        class="navbar-nav mb-2 mb-lg-0 mt-2"
+        (click)="dropdownOpen = !dropdownOpen"
+      >
+        <li class="nav-item dropdown me-1">
+          <a class="nav-link dropdown-toggle" role="button">
+            <i class="fa-solid fa-user me-1"></i> Account
+          </a>
+          <ul
+            [ngStyle]="{
+              display: dropdownOpen ? 'block' : 'none'
+            }"
+            class="dropdown-menu mb-2"
+          >
+            <li class="px-2 mb-2">
+              <a
+                *ngIf="!this.authService.isLoggedIn()"
+                routerLink="/login"
+                class="w-100 btn btn-outline-primary shadow-sm"
+                >Login</a
+              >
+            </li>
+            <li class="px-2 mb-2">
+              <a
+                *ngIf="!this.authService.isLoggedIn()"
+                routerLink="/register"
+                class="w-100 btn btn-outline-primary shadow-sm"
+                >Register</a
+              >
+            </li>
+            <li class="px-2 mb-2">
+              <a
+                *ngIf="this.authService.isLoggedIn()"
+                class="w-100 btn btn-outline-primary shadow-sm"
+                >Logout</a
+              >
+            </li>
+            <li *ngIf="this.authService.isLoggedIn()">
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a
+                *ngIf="this.authService.isLoggedIn()"
+                routerLink="/profile"
+                class="dropdown-item"
+                href="#"
+                ><i class="fa-solid fa-user me-1"></i> My Account</a
+              >
+            </li>
+            <li>
+              <a
+                *ngIf="this.authService.isLoggedIn()"
+                routerLink="/orders"
+                class="dropdown-item"
+                href="#"
+                ><i class="fa-solid fa-box me-1"></i> Orders</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/cart" class="btn btn-outline-primary shadow-sm"
+            >Cart <i class="fa-solid fa-cart-shopping"></i
+          ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
