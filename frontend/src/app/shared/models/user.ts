@@ -1,9 +1,10 @@
 export class User {
   id?: string = '';
-  username: string = '';
-  firstname: string = '';
-  lastname: string = '';
-  role: string = '';
-  token: string = '';
-  // isActive: boolean = false;
+  user_name?: string = '';
+  first_name?: string = '';
+  last_name?: string = '';
+  email?: string = '';
+  role?: string = '';
+  token?: string = '';
+  status?: string = '';
 }
