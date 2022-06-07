@@ -67,7 +67,7 @@ describe('User API Endpoints', () => {
   describe('Test CRUD API methods', () => {
     it('should create new user', async () => {
       const res = await request
-        .post('/users')
+        .post('/users/create')
         .set('Content-type', 'application/json')
         .send({
           user_name: 'testUserTwo',
@@ -88,7 +88,7 @@ describe('User API Endpoints', () => {
 
     it('should get list of users', async () => {
       const res = await request
-        .get('/users')
+        .get('/users/index')
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`);
       expect(res.status).toBe(200);
@@ -97,7 +97,7 @@ describe('User API Endpoints', () => {
 
     it('should get user info', async () => {
       const res = await request
-        .get(`/users/${user.user_id}`)
+        .get(`/users/show/${user.user_id}`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`);
       expect(res.status).toBe(200);
@@ -107,7 +107,7 @@ describe('User API Endpoints', () => {
 
     it('should update user info', async () => {
       const res = await request
-        .patch(`/users/${user.user_id}`)
+        .patch(`/users/update/${user.user_id}`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .send({
@@ -130,7 +130,7 @@ describe('User API Endpoints', () => {
 
     it('should delete user', async () => {
       const res = await request
-        .delete(`/users/${user.user_id}`)
+        .delete(`/users/delete/${user.user_id}`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`);
       expect(res.status).toBe(200);

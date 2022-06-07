@@ -115,18 +115,12 @@ const authenticate = async (
 };
 
 const userRoutes = (app: express.Application) => {
-  app.get('/users', verifyAuthToken, index);
-  app.get('/users/:id', verifyAuthToken, show);
-  app.post('/users', createUserValidator(), validationMiddleware, create);
-  app.delete('/users/:id', verifyAuthToken, destroy);
+  app.get('/users/index', verifyAuthToken, index);
+  app.get('/users/show/:id', verifyAuthToken, show);
+  app.post('/users/create', createUserValidator(), validationMiddleware, create);
+  app.delete('/users/delete/:id', verifyAuthToken, destroy);
   app.post('/users/authenticate', authenticate);
-  app.patch(
-    '/users/:id',
-    verifyAuthToken,
-    createUserValidator(),
-    validationMiddleware,
-    update
-  );
+  app.patch('/users/update/:id',verifyAuthToken, createUserValidator(), validationMiddleware, update);
 };
 
 export default userRoutes;

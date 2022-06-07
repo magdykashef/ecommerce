@@ -72,7 +72,7 @@ components:
         first_name: "ahmed"
         last_name: saad
         password: asssss1234
-        phone: +201001656805
+        phone: '+201001656805'
         address: 15 Shobra St,Cairo,Egypt
 
   Error:
@@ -102,9 +102,11 @@ components:
             status: 401
             message: Login error:please try again
     
-#Post Request to create new User
+
 paths:
-  /users:
+
+#Post Request to create new User
+  /users/create:
     post:
       summary: Create new user.
       requestBody:
@@ -182,9 +184,8 @@ paths:
                   statusCode: 500
                   messageData: unable create user + error 
 
-#Get Request with path id
-
-  /users/{userId}:
+# get request with id to get one user
+  /users/show/{userId}:
     get:
       summary: Returns a user by ID.
       parameters:
@@ -260,8 +261,8 @@ paths:
                   statusCOde: 400
                   messageData: unable show user + error
 
-# update user information
-/users:
+# patch request with id to update user
+  /users/update/{userId}:
     patch:
       summary: Update user information.
       parameters:
@@ -352,8 +353,9 @@ paths:
         '401':
             $ref: '#/components/responses/UnauthorizedError'
 
-# Delete user account
-/users/{userId}:
+
+# Delete request with id to Delete one user
+  /users/delete/{userId}:
     delete:
       summary: Delete user by ID.
       parameters:

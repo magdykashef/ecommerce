@@ -18,7 +18,7 @@ import config from './config';
 
 import userRoutes from './handlers/userRoutes';
 
-const swaggerJsDoc = YAML.load('./api.yaml');
+const swaggerJsDoc = YAML.load('./docs/api.yaml');
 
 const port = config.PORT || 8000;
 
