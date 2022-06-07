@@ -21,8 +21,9 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!(
-      localStorage.getItem('id') && 
+      localStorage.getItem('user_id') && 
       localStorage.getItem('user_name') && 
+      localStorage.getItem('status') && 
       localStorage.getItem('role') && 
       localStorage.getItem('token'));
   }
@@ -33,8 +34,9 @@ export class AuthService {
   }
 
   private resetCurrentUser() {
-    localStorage.removeItem('id');
+    localStorage.removeItem('user_id');
     localStorage.removeItem('user_name');
+    localStorage.removeItem('status');
     localStorage.removeItem('token');
     localStorage.removeItem('role');
   }
