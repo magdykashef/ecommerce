@@ -113,8 +113,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-      security:
-        - bearerAuth: []
+
       responses:
         '200':
           description: ok
@@ -145,6 +144,9 @@ paths:
                       
                       token: 
                         type: jwt token
+                      
+                      status:
+                        type: string
 
                   message:
                     type: string
@@ -258,4 +260,171 @@ paths:
                   statusCOde: 400
                   messageData: unable show user + error
 
+# update user information
+/users:
+    patch:
+      summary: Update user information.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to return.
+          schema:
+            type: string
+            format: uuid
+  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: json object
+                properties:
+                  statusCode: 
+                    type: integer
+                  data: 
+                    type: object
 
+                    properties:
+                      user_id:
+                        type: string
+                        format: uuid
+
+                      user_name:
+                        type: string
+                        
+                      email:
+                        type: string
+                        format: email
+                      
+                      role:
+                        type: string
+                      
+                      token: 
+                        type: jwt token
+                      
+                      status:
+                        type: string
+
+                  message:
+                    type: string
+                    description: user updated successfully
+
+              example:
+                statusCode: 200
+                data:
+                  user_id: b7a12419-d9e7-4c7c-964b-982dcf3ad097
+                  user_name: elking
+                  email: ahm@yahoo.com
+                  role: user
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
+                  status: active
+                messageData: user updated successfully
+                
+        '400':
+            description: Failed to update user
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/Error'
+                example:
+                  statusCode: 400
+                  messageData: Last name should be alphabetic characters
+        '500':
+            description: internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/Error'
+                example:
+                  statusCode: 500
+                  messageData: Failed to update user + error
+        
+        '401':
+            $ref: '#/components/responses/UnauthorizedError'
+
+# Delete user account
+/users/{userId}:
+    delete:
+      summary: Delete user by ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to return.
+          schema:
+            type: string
+            format: uuid
+      security:
+        - bearerAuth: []
+      responses:
+        
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: json object
+                properties:
+                  statusCode: 
+                    type: integer
+                  data: 
+                    type: object
+
+                    properties:
+                      user_id:
+                        type: string
+                        format: uuid
+
+                      user_name:
+                        type: string
+                        
+                      email:
+                        type: string
+                        format: email
+                      
+                      role:
+                        type: string
+                      
+                      token: 
+                        type: jwt token
+                      
+                      status:
+                        type: string
+
+                  message:
+                    type: string
+                    description: user updated successfully
+
+              example:
+                statusCode: 200
+                data:
+                  user_id: b7a12419-d9e7-4c7c-964b-982dcf3ad097
+                  user_name: elking
+                  email: ahm@yahoo.com
+                  role: user
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
+                  status: active
+                messageData: user deleted successfully
+
+        '401':
+            $ref: '#/components/responses/UnauthorizedError'  
+        
+        default:
+            description: unable show user
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/Error'
+                example:
+                  statusCOde: 400
+                  messageData: unable delete user + error

@@ -6,10 +6,7 @@ import { UserStore } from '../models/user';
 
 import config from '../config';
 
-import {
-  createUserValidator,
-  validationMiddleware,
-} from '../middleware/userValidation';
+import { createUserValidator, validationMiddleware } from '../middleware/userValidation';
 
 import verifyAuthToken from '../middleware/verify';
 
@@ -43,10 +40,14 @@ const show = async (req: Request, res: Response, next: NextFunction) => {
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    
     const newUser = await store.create(req.body);
+
+    const {user_id, user_name, status, role} = newUser
     const token = jwt.sign(
-      { newUser },
-      config.tokenSecret as unknown as string
+      { user_id, user_name, status, role },
+      config.tokenSecret as unknown as string,
+      { expiresIn: '2h' },
     );
 
     return res.json({
@@ -95,7 +96,7 @@ const authenticate = async (
     const { email, password } = req.body;
 
     const user = await store.authenticate(email, password);
-    const token = jwt.sign({ user }, config.tokenSecret as unknown as string);
+    const token = jwt.sign({ user }, config.tokenSecret as unknown as string, { expiresIn: '2h' });
     if (!user) {
       return res.status(401).json({
         statusCode: 200,
