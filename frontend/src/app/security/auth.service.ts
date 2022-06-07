@@ -19,6 +19,18 @@ export class AuthService {
     return this.http.post<User>(`${environment.api}/login`, { email, password });
   }
 
+  register(user:User): Observable<User | null>{
+    return this.http.post<User>(`${environment.api}/register`, {
+        user_name: user.user_name,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        password: user.password,
+        address: user.address,
+        phone: user.phone
+    });
+}
+
   isLoggedIn(): boolean {
     return !!(
       localStorage.getItem('user_id') && 
