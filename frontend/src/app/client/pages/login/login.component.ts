@@ -47,8 +47,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       (user: User) => {
-        localStorage.setItem('id', user.id);
+        localStorage.setItem('user_id', user.user_id);
         localStorage.setItem('user_name', user.user_name);
+        localStorage.setItem('status', user.status);
         localStorage.setItem('role', user.role);
         localStorage.setItem('token', user.token);
         this.router.navigate([localStorage.getItem('role') === 'admin' ? '/admin' : '/']);
