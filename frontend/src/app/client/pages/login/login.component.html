@@ -12,13 +12,12 @@
       <div class="form-group grid justify-content-start mb-3">
         <label class="col-12 sm:col-3 p-0 pb-1 text-start" for="email">Email</label>
 
-        <input type="text" formControlName="email" class="col-12 sm:col-8 py-2" id="email" aria-describedby="email"
+        <input type="email" formControlName="email" class="col-12 sm:col-8 py-2" id="email" aria-describedby="email"
           autocomplete="on">
 
-        <div class="my-2" *ngIf="username.touched && username.invalid">
-          <p *ngIf="username.errors?.required">Username is required.</p>
-          <p *ngIf="username.errors?.['minlength']">Username length must be greater than 4 characters. </p>
-          <p *ngIf="username.errors?.['maxlength']">Username must be at most 30 characters long. </p>
+        <div class="my-2" *ngIf="email.touched && email.invalid">
+          <p *ngIf="email.errors?.required">Email is required</p>
+          <p *ngIf="email.errors?.['email']">Please enter a valid Email</p>
         </div>
 
       </div>
@@ -30,12 +29,12 @@
 
         <div class="mt-2" *ngIf="password.touched && password.invalid">
           <p *ngIf="password.errors?.['required']">Password is required</p>
-          <p *ngIf="password.errors?.['minlength']">Password length must be greater than 8 characters.</p>
-          <p *ngIf="password.errors?.['maxlength']">Password must be at most 20 characters long.</p>
+          <p *ngIf="password.errors?.['minlength']">Password length must be greater than 8 characters</p>
+          <p *ngIf="password.errors?.['maxlength']">Password must be at most 20 characters long</p>
           <p *ngIf="password.errors?.['pattern']">
             A password should be alphanumeric and
             contain at least one capital
-            letter and special character.</p>
+            letter and special character</p>
         </div>
       </div>
 

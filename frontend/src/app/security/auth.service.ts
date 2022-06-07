@@ -13,23 +13,28 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    ) { }
+  ) { }
 
-  login(username: string, password:string): Observable<User | null>{
-    return this.http.post<User>(`${environment.api}/login`,{username, password});
+  login(email: string, password: string): Observable<User | null> {
+    return this.http.post<User>(`${environment.api}/login`, { email, password });
   }
 
-  isLoggedIn(): boolean{
-    return !!(localStorage.getItem('username') && localStorage.getItem('role') && localStorage.getItem('token'));
+  isLoggedIn(): boolean {
+    return !!(
+      localStorage.getItem('id') && 
+      localStorage.getItem('user_name') && 
+      localStorage.getItem('role') && 
+      localStorage.getItem('token'));
   }
 
-  logout(){
+  logout() {
     this.resetCurrentUser();
     this.router.navigate(['/']);
   }
 
-  private resetCurrentUser(){
-    localStorage.removeItem('username');
+  private resetCurrentUser() {
+    localStorage.removeItem('id');
+    localStorage.removeItem('user_name');
     localStorage.removeItem('token');
     localStorage.removeItem('role');
   }
