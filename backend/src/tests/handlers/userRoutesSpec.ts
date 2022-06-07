@@ -25,7 +25,7 @@ describe('User API Endpoints', () => {
 
   beforeAll(async () => {
     const createdUser = await store.create(user);
-    user.id = createdUser.id;
+    user.user_id = createdUser.user_id;
   });
 
   afterAll(async () => {
@@ -46,8 +46,8 @@ describe('User API Endpoints', () => {
           password: 'test1234',
         });
       expect(res.status).toBe(200);
-      const { id, email, token: userToken } = res.body.data;
-      expect(id).toBe(user.id);
+      const { user_id, email, token: userToken } = res.body.data;
+      expect(user_id).toBe(user.user_id);
       expect(email).toBe('test@test.com');
       token = userToken;
     });
@@ -79,10 +79,11 @@ describe('User API Endpoints', () => {
           phone: '+201001656801',
         } as User);
       expect(res.status).toBe(200);
-      const { user_name, email, role } = res.body.data;
+      const { user_name, email, role, status} = res.body.data;
       expect(email).toBe('test2@test.com');
       expect(user_name).toBe('testUserTwo');
       expect(role).toBe('user');
+      expect(status).toBe('active');
     });
 
     it('should get list of users', async () => {
@@ -96,7 +97,7 @@ describe('User API Endpoints', () => {
 
     it('should get user info', async () => {
       const res = await request
-        .get(`/users/${user.id}`)
+        .get(`/users/${user.user_id}`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`);
       expect(res.status).toBe(200);
@@ -106,11 +107,11 @@ describe('User API Endpoints', () => {
 
     it('should update user info', async () => {
       const res = await request
-        .patch(`/users/${user.id}`)
+        .patch(`/users/${user.user_id}`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .send({
-          id: user.id,
+          user_id: user.user_id,
           user_name: 'ahmedsaad',
           first_name: 'Ahmed',
           last_name: 'Saad',
@@ -129,11 +130,11 @@ describe('User API Endpoints', () => {
 
     it('should delete user', async () => {
       const res = await request
-        .delete(`/users/${user.id}`)
+        .delete(`/users/${user.user_id}`)
         .set('Content-type', 'application/json')
         .set('Authorization', `Bearer ${token}`);
       expect(res.status).toBe(200);
-      expect(res.body.data.id).toBe(user.id);
+      expect(res.body.data.user_id).toBe(user.user_id);
       expect(res.body.data.user_name).toBe('ahmedsaad');
     });
   });

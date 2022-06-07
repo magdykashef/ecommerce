@@ -4,8 +4,11 @@ import Client from '../database';
 
 import config from '../config';
 
+enum status { active, deactivated, suspended };
+enum role { user, admin }
+
 export type User = {
-  id?: string;
+  user_id?: string;
   user_name: string;
   first_name: string;
   last_name: string;
@@ -14,7 +17,8 @@ export type User = {
   register_date?: Date;
   address: string;
   phone: string;
-  role?: string;
+  role?: role;
+  status?: status
 };
 
 const hashPassword = (password: string) => {
@@ -41,7 +45,7 @@ export class UserStore {
   async show(id: string): Promise<User> {
     try {
       const sql =
-        'SELECT user_name, first_name, last_name, email, address, phone FROM users WHERE id=($1)';
+        'SELECT user_name, first_name, last_name, email, address, phone FROM users WHERE user_id=($1)';
 
       const conn = await Client.connect();
 
@@ -60,7 +64,7 @@ export class UserStore {
       const conn = await Client.connect();
 
       const sql =
-        'INSERT INTO users (user_name, first_name, last_name, email, password, phone, address, role) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id, user_name, email, role';
+        'INSERT INTO users (user_name, first_name, last_name, email, password, phone, address, role, status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING user_id, user_name, email, role, status';
 
       const result = await conn.query(sql, [
         u.user_name,
@@ -70,7 +74,8 @@ export class UserStore {
         hashPassword(u.password),
         u.phone,
         u.address,
-        'user',
+        role[0],
+        status[0]
       ]);
 
       const user = result.rows[0];
@@ -90,10 +95,10 @@ export class UserStore {
       const connection = await Client.connect();
 
       const sql =
-        'UPDATE users SET user_name=($2), first_name=($3),last_name=($4), password=($5), address=($6), phone=($7) WHERE id=($1) RETURNING id, user_name, email, role';
+        'UPDATE users SET user_name=($2), first_name=($3),last_name=($4), password=($5), address=($6), phone=($7) WHERE user_id=($1) RETURNING user_id, user_name, email, role, status';
 
       const result = await connection.query(sql, [
-        u.id,
+        u.user_id,
         u.user_name,
         u.first_name,
         u.last_name,
@@ -119,7 +124,7 @@ export class UserStore {
       const conn = await Client.connect();
 
       const sql =
-        'DELETE FROM users WHERE id=($1) RETURNING id, user_name, email, role';
+        'DELETE FROM users WHERE user_id=($1) RETURNING user_id, user_name, email, role, status';
 
       const result = await conn.query(sql, [id]);
 
@@ -149,7 +154,7 @@ export class UserStore {
         );
         if (isPasswordValid) {
           const user = await conn.query(
-            'SELECT id, user_name, first_name, last_name, email FROM users WHERE email=($1)',
+            'SELECT user_id, user_name, first_name, last_name, email FROM users WHERE email=($1)',
             [email]
           );
           return user.rows[0];

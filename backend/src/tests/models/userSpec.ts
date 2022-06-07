@@ -45,7 +45,7 @@ describe('User Model', () => {
     let createdUserTwo: User;
     beforeAll(async () => {
       const createdUser = await store.create(user);
-      userId = createdUser.id;
+      userId = createdUser.user_id;
     });
 
     afterAll(async () => {
@@ -67,11 +67,12 @@ describe('User Model', () => {
       } as User);
 
       expect(createdUserTwo).toEqual({
-        id: createdUserTwo.id,
-        user_name: 'test2User',
-        email: 'test2@test.com',
-        role: 'user',
-      } as User);
+          user_id: createdUserTwo.user_id,
+          user_name: 'test2User',
+          email: 'test2@test.com',
+          role: 'user',
+          status: 'active'
+        } as unknown as User);
     });
 
     it('Get Many method should return All available users in DB', async () => {
@@ -80,7 +81,7 @@ describe('User Model', () => {
     });
 
     it('Get One method should return testUser when called with ID', async () => {
-      const returnedUser = await store.show(createdUserTwo.id as string);
+      const returnedUser = await store.show(createdUserTwo.user_id as string);
       expect(returnedUser.user_name).toBe(createdUserTwo.user_name);
       expect(returnedUser.email).toBe(createdUserTwo.email);
     });
@@ -106,7 +107,7 @@ describe('User Model', () => {
 
     it('Update One method should return a user with edited attributes', async () => {
       const updatedUser = await store.update({
-        id: userId as string,
+        user_id: userId as string,
         user_name: 'testUser Updated',
         first_name: 'Ahmed',
         last_name: 'Saad',
@@ -115,14 +116,14 @@ describe('User Model', () => {
         address: user.address,
         phone: user.phone,
       });
-      expect(updatedUser.id).toBe(userId as string);
+      expect(updatedUser.user_id).toBe(userId as string);
       expect(updatedUser.user_name).toBe('testUser Updated');
       expect(updatedUser.email).toBe(user.email);
     });
 
     it('Delete One method should delete user from DB', async () => {
       const deletedUser = await store.delete(userId as string);
-      expect(deletedUser.id).toBe(userId as string);
+      expect(deletedUser.user_id).toBe(userId as string);
     });
   });
 });

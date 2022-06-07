@@ -19,7 +19,7 @@ components:
         - address
         - phone
       properties:
-        id:
+        user_id:
           type: string
           format: uuid
 
@@ -57,9 +57,14 @@ components:
         register_date:
           type: Date
           description: auto-generated current date of the user registration
+
         role:
           type: string
           description: admin or user
+        
+        status:
+          type: string
+          description: active, deactivated, suspended
       
       example:
         email: ahm@yahoo.com
@@ -124,7 +129,7 @@ paths:
                     type: object
 
                     properties:
-                      id:
+                      user_id:
                         type: string
                         format: uuid
 
@@ -148,11 +153,12 @@ paths:
               example:
                 statusCode: 200
                 data:
-                  id: b7a12419-d9e7-4c7c-964b-982dcf3ad097
+                  user_id: b7a12419-d9e7-4c7c-964b-982dcf3ad097
                   user_name: ahmedelking
                   email: ahm@yahoo.com
                   role: user
                   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
+                  status: active
                 messageData: user created successfully
                 
         '400':
@@ -252,5 +258,4 @@ paths:
                   statusCOde: 400
                   messageData: unable show user + error
 
-        
 
