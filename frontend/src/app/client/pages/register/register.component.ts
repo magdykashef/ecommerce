@@ -71,7 +71,6 @@ export class RegisterComponent implements OnInit {
         "",
         [
           Validators.required,
-          //   this.match("password", "confirmPassword")
         ],
       ],
       address: ["", [Validators.required, Validators.minLength(10)]],
