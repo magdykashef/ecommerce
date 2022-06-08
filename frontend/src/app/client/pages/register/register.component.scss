@@ -1,0 +1,18 @@
+.card {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+section {
+  background-image: url("http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.form-control:focus {
+  border-color: #03a9f4;
+  box-shadow: 0 0 0 1px #03a9f4;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

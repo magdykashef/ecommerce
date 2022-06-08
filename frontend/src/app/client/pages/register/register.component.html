@@ -1,1 +1,230 @@
-<p>register works!</p>
+<section *ngIf="!this.authService.isLoggedIn()" class="bg-image">
+  <div class="mask d-flex align-items-center gradient-custom-3">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-sm-9 col-md-7 col-lg-6 col-xl-5">
+          <div class="card mt-4" style="border-radius: 15px">
+            <div class="card-body p-3">
+              <h6 class="text-uppercase text-center text-warning b-3">
+                Create an account
+              </h6>
+
+              <p *ngIf="errorMessage" class="mb-1 text-center text-danger">
+                {{ errorMessage | titlecase }}
+              </p>
+
+              <form
+                class="row g-2"
+                [formGroup]="registerForm"
+                (ngSubmit)="onSubmit(); submit.disabled = true"
+              >
+                <div class="form-outline mb-2">
+                  <label class="form-label" for="user_name">User Name</label>
+                  <input
+                    type="text"
+                    formControlName="username"
+                    id="user_name"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your User Name"
+                  />
+
+                  <div
+                    *ngIf="username.touched && username.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="username.errors?.required">is required.</p>
+                    <p *ngIf="username.errors?.['minlength']">
+                      length must be greater than 4 characters.
+                    </p>
+                    <p *ngIf="username.errors?.['maxlength']">
+                      must be at most 30 characters long.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-2 col-md">
+                  <label class="form-label" for="first_name">First Name</label>
+                  <input
+                    type="text"
+                    formControlName="first_name"
+                    id="first_name"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your First Name"
+                  />
+
+                  <div
+                    *ngIf="first_name.touched && first_name.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="first_name.errors?.required">is required.</p>
+                    <p *ngIf="first_name.errors?.['minlength']">
+                      length must be greater than 3 characters.
+                    </p>
+                    <p *ngIf="first_name.errors?.['maxlength']">
+                      must be at most 20 characters long.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-2 col-md">
+                  <label class="form-label" for="last_name">Last Name</label>
+                  <input
+                    type="text"
+                    formControlName="last_name"
+                    id="last_name"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your Last Name"
+                  />
+
+                  <div
+                    *ngIf="last_name.touched && last_name.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="last_name.errors?.required">is required.</p>
+                    <p *ngIf="last_name.errors?.['minlength']">
+                      length must be greater than 3 characters.
+                    </p>
+                    <p *ngIf="last_name.errors?.['maxlength']">
+                      must be at most 20 characters long.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-2">
+                  <label class="form-label" for="email">Email</label>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    id="email"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your Email"
+                  />
+
+                  <div
+                    *ngIf="email.touched && email.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="email.errors?.required">is required.</p>
+                    <p *ngIf="email.errors?.['email']">
+                      must be a valid email.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-2 col-md">
+                  <label class="form-label" for="password">password</label>
+                  <input
+                    type="password"
+                    formControlName="password"
+                    id="password"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your password"
+                  />
+
+                  <div
+                    *ngIf="password.touched && password.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="password.errors?.['required']">is required</p>
+                    <p
+                      *ngIf="password.errors?.['minlength'] || password.errors?.['maxlength']|| password.errors?.['pattern']"
+                    >
+                      must be between 8 & 20 characters and should be
+                      alphanumeric and contain at least one capital letter and
+                      special character
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-2 col-md">
+                  <label class="form-label" for="password_r"
+                    >Repeat your password</label
+                  >
+                  <input
+                    type="password"
+                    formControlName="confirmPassword"
+                    id="password_r"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="confirm password"
+                  />
+
+                  <div
+                    *ngIf="confirmPassword.touched && confirmPassword.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="confirmPassword.errors?.['required']">
+                      is required
+                    </p>
+                    <p *ngIf="confirmPassword.errors?.['matching']">
+                      passwords not the same
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-2">
+                  <label class="form-label" for="Address">Address</label>
+                  <input
+                    type="text"
+                    formControlName="address"
+                    id="Address"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your Address"
+                  />
+
+                  <div
+                    *ngIf="address.touched && address.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="address.errors?.required">is required.</p>
+                    <p *ngIf="address.errors?.['minlength']">
+                      length must be greater than 10 characters.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline">
+                  <label class="form-label" for="Phone">Phone</label>
+                  <input
+                    type="tel"
+                    formControlName="phone"
+                    id="Phone"
+                    class="form-control form-control-sm rounded-pill"
+                    placeholder="Your Phone"
+                  />
+
+                  <div
+                    *ngIf="phone.touched && phone.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="phone.errors?.required">is required.</p>
+                    <p *ngIf="phone.errors?.['pattern']">
+                      length must be numbers and must be 11 numbers.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    class="btn btn-warning btn-block text-white rounded-pill"
+                    [ngStyle]="{ opacity: registerForm.invalid ? '0.8' : '1' }"
+                    [disabled]="registerForm.invalid"
+                  >
+                    Register
+                  </button>
+                </div>
+
+                <p class="text-center text-white mt-1 mb-0">
+                  Have already an account?
+                  <a routerLink="/login" class="fw-bold text-warning"
+                    ><u>Login here</u></a
+                  >
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
