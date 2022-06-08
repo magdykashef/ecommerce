@@ -22,21 +22,21 @@
                   <label class="form-label" for="user_name">User Name</label>
                   <input
                     type="text"
-                    formControlName="username"
+                    formControlName="user_name"
                     id="user_name"
                     class="form-control form-control-sm rounded-pill"
                     placeholder="Your User Name"
                   />
 
                   <div
-                    *ngIf="username.touched && username.invalid"
+                    *ngIf="user_name.touched && user_name.invalid"
                     class="text-danger"
                   >
-                    <p *ngIf="username.errors?.required">is required.</p>
-                    <p *ngIf="username.errors?.['minlength']">
+                    <p *ngIf="user_name.errors?.required">is required.</p>
+                    <p *ngIf="user_name.errors?.['minlength']">
                       length must be greater than 4 characters.
                     </p>
-                    <p *ngIf="username.errors?.['maxlength']">
+                    <p *ngIf="user_name.errors?.['maxlength']">
                       must be at most 30 characters long.
                     </p>
                   </div>

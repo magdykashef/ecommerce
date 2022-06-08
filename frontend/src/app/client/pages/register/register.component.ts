@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registerForm = this.formBuilder.group({
-      username: [
+      user_name: [
         "",
         [
           Validators.required,
@@ -111,7 +111,7 @@ export class RegisterComponent implements OnInit {
       })
       .subscribe(
         (user: User) => {
-          localStorage.setItem("username", user.user_name);
+          localStorage.setItem("user_name", user.user_name);
           localStorage.setItem("role", user.role);
           localStorage.setItem("token", user.token);
           this.router.navigate([
@@ -124,8 +124,8 @@ export class RegisterComponent implements OnInit {
       );
   }
 
-  get username() {
-    return this.registerForm.get("username");
+  get user_name() {
+    return this.registerForm.get("user_name");
   }
 
   get first_name() {
