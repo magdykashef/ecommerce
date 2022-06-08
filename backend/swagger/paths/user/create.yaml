@@ -1,0 +1,77 @@
+#Post Request to create new User
+post:
+  summary: Create new user.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/user.yaml'
+
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            type: json object
+            properties:
+              statusCode: 
+                type: integer
+              data: 
+                type: object
+
+                properties:
+                  user_id:
+                    type: string
+                    format: uuid
+
+                  user_name:
+                    type: string
+                    
+                  email:
+                    type: string
+                    format: email
+                  
+                  role:
+                    type: string
+                  
+                  token: 
+                    type: jwt token
+                  
+                  status:
+                    type: string
+
+              message:
+                type: string
+                description: user created successfully
+
+          example:
+            statusCode: 200
+            data:
+              user_id: b7a12419-d9e7-4c7c-964b-982dcf3ad097
+              user_name: ahmedelking
+              email: ahm@yahoo.com
+              role: user
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
+              status: active
+            messageData: user created successfully
+            
+    '400':
+        description: unable create user
+        content:
+          application/json:
+            schema:
+              $ref: '../../error/error.yaml'
+            example:
+              statusCode: 400
+              messageData: User name is required
+    '500':
+        description: internal server error
+        content:
+          application/json:
+            schema:
+              $ref: '../../error/error.yaml'
+            example:
+              statusCode: 500
+              messageData: unable create user + error

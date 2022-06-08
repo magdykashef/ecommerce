@@ -4,8 +4,7 @@ info:
   description: It exposes a RESTful API that will be used by the frontend developer
   version: 1.0.0
 servers:
-  - url: http://localhost:5000
-
+  - url: 'http://localhost:5000'
 components:
   schemas:
     User:
@@ -18,94 +17,73 @@ components:
         - password
         - address
         - phone
-      properties:
-        user_id:
-          type: string
-          format: uuid
-
-        user_name:
-          type: string
-          maxLength: 50
-
-        first_name:
-          type: string
-          maxLength: 50
-
-        last_name:
-          type: string
-          maxLength: 50
-
-        password:
-          type: string
-          minLength: 8
-          maxLength: 16
-          description: Must contain a number, does't contain common word like ['123', 'password', 'god']
-
-        email:
-          type: string
-          format: email
-
-        address:
-          type: string
-          maxLength: 255
-
-        phone:
-          type: string
-          maxLength: 50
-          description: The mobile phone number must be supplied with the country code and therefore must start with "+".
-        
-        register_date:
-          type: Date
-          description: auto-generated current date of the user registration
-
-        role:
-          type: string
-          description: admin or user
-        
-        status:
-          type: string
-          description: active, deactivated, suspended
-      
+      properties: null
+      user_id:
+        type: string
+        format: uuid
+      user_name:
+        type: string
+        maxLength: 50
+      first_name:
+        type: string
+        maxLength: 50
+      last_name:
+        type: string
+        maxLength: 50
+      password:
+        type: string
+        minLength: 8
+        maxLength: 16
+        description: 'Must contain a number, does''t contain common word like [''123'', ''password'', ''god'']'
+      email:
+        type: string
+        format: email
+      address:
+        type: string
+        maxLength: 255
+      phone:
+        type: string
+        maxLength: 50
+        description: The mobile phone number must be supplied with the country code and therefore must start with "+".
+      register_date:
+        type: Date
+        description: auto-generated current date of the user registration
+      role:
+        type: string
+        description: admin or user
+      status:
+        type: string
+        description: 'active, deactivated, suspended'
       example:
         email: ahm@yahoo.com
         user_name: ahmedelking
-        first_name: "ahmed"
+        first_name: ahmed
         last_name: saad
         password: asssss1234
         phone: '+201001656805'
-        address: 15 Shobra St,Cairo,Egypt
-
+        address: '15 Shobra St,Cairo,Egypt'
   Error:
     type: object
-      properties:
-        statusCode:
-          type: integer
-        messageData:
-          type: string
-    
-
-
+    properties: null
+    statusCode:
+      type: integer
+    messageData:
+      type: string
   securitySchemes:
-    bearerAuth:        
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-
-  responses:
-    UnauthorizedError:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/Error'
-          example:
-            status: 401
-            message: Login error:please try again
-    
-
+  UnauthorizedError:
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/Error'
+        example:
+          status: 401
+          message: 'Login error:please try again'
 paths:
-
-#Post Request to create new User
   /users/create:
     post:
       summary: Create new user.
@@ -115,7 +93,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/User'
-
       responses:
         '200':
           description: ok
@@ -124,36 +101,28 @@ paths:
               schema:
                 type: json object
                 properties:
-                  statusCode: 
+                  statusCode:
                     type: integer
-                  data: 
+                  data:
                     type: object
-
                     properties:
                       user_id:
                         type: string
                         format: uuid
-
                       user_name:
                         type: string
-                        
                       email:
                         type: string
                         format: email
-                      
                       role:
                         type: string
-                      
-                      token: 
+                      token:
                         type: jwt token
-                      
                       status:
                         type: string
-
                   message:
                     type: string
                     description: user created successfully
-
               example:
                 statusCode: 200
                 data:
@@ -164,28 +133,25 @@ paths:
                   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
                   status: active
                 messageData: user created successfully
-                
         '400':
-            description: unable create user
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/Error'
-                example:
-                  statusCode: 400
-                  messageData: User name is required
+          description: unable create user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                statusCode: 400
+                messageData: User name is required
         '500':
-            description: internal server error
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/Error'
-                example:
-                  statusCode: 500
-                  messageData: unable create user + error 
-
-# get request with id to get one user
-  /users/show/{userId}:
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                statusCode: 500
+                messageData: unable create user + error
+  '/users/show/{userId}':
     get:
       summary: Returns a user by ID.
       parameters:
@@ -206,34 +172,25 @@ paths:
               schema:
                 type: json object
                 properties:
-                  statusCode: 
+                  statusCode:
                     type: string
                     description: 200
-                  data: 
+                  data:
                     type: object
-
                     properties:
-
                       user_name:
                         type: string
-
                       first_name:
                         type: string
-                        
-
                       last_name:
                         type: string
-                        
                       email:
                         type: string
                         format: email
-
                       address:
                         type: string
-
                       phone:
                         type: string
-
                   messageData:
                     type: string
                     description: user retrieved successfully
@@ -244,25 +201,21 @@ paths:
                   first_name: ahmed
                   last_name: saad
                   email: ahm@yahoo.com
-                  address: 15 Shobra St,Cairo,Egypt
-                  phone: +201001656803
+                  address: '15 Shobra St,Cairo,Egypt'
+                  phone: 201001656803
                 messageData: user retrieved successfully
-
         '401':
-            $ref: '#/components/responses/UnauthorizedError'  
-        
+          $ref: '#/components/UnauthorizedError'
         default:
-            description: unable show user
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/Error'
-                example:
-                  statusCOde: 400
-                  messageData: unable show user + error
-
-# patch request with id to update user
-  /users/update/{userId}:
+          description: unable show user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                statusCOde: 400
+                messageData: unable show user + error
+  '/users/update/{userId}':
     patch:
       summary: Update user information.
       parameters:
@@ -273,7 +226,6 @@ paths:
           schema:
             type: string
             format: uuid
-  
       requestBody:
         required: true
         content:
@@ -290,36 +242,28 @@ paths:
               schema:
                 type: json object
                 properties:
-                  statusCode: 
+                  statusCode:
                     type: integer
-                  data: 
+                  data:
                     type: object
-
                     properties:
                       user_id:
                         type: string
                         format: uuid
-
                       user_name:
                         type: string
-                        
                       email:
                         type: string
                         format: email
-                      
                       role:
                         type: string
-                      
-                      token: 
+                      token:
                         type: jwt token
-                      
                       status:
                         type: string
-
                   message:
                     type: string
                     description: user updated successfully
-
               example:
                 statusCode: 200
                 data:
@@ -330,32 +274,27 @@ paths:
                   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
                   status: active
                 messageData: user updated successfully
-                
         '400':
-            description: Failed to update user
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/Error'
-                example:
-                  statusCode: 400
-                  messageData: Last name should be alphabetic characters
-        '500':
-            description: internal server error
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/Error'
-                example:
-                  statusCode: 500
-                  messageData: Failed to update user + error
-        
+          description: Failed to update user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                statusCode: 400
+                messageData: Last name should be alphabetic characters
         '401':
-            $ref: '#/components/responses/UnauthorizedError'
-
-
-# Delete request with id to Delete one user
-  /users/delete/{userId}:
+          $ref: '#/components/UnauthorizedError'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                statusCode: 500
+                messageData: Failed to update user + error
+  '/users/delete/{userId}':
     delete:
       summary: Delete user by ID.
       parameters:
@@ -369,7 +308,6 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        
         '200':
           description: ok
           content:
@@ -377,36 +315,28 @@ paths:
               schema:
                 type: json object
                 properties:
-                  statusCode: 
+                  statusCode:
                     type: integer
-                  data: 
+                  data:
                     type: object
-
                     properties:
                       user_id:
                         type: string
                         format: uuid
-
                       user_name:
                         type: string
-                        
                       email:
                         type: string
                         format: email
-                      
                       role:
                         type: string
-                      
-                      token: 
+                      token:
                         type: jwt token
-                      
                       status:
                         type: string
-
                   message:
                     type: string
                     description: user updated successfully
-
               example:
                 statusCode: 200
                 data:
@@ -417,16 +347,14 @@ paths:
                   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJlYjdiNjEyNC01N2FmLTQ2MWItOTA5OC0xYzA5MjNlMmUwMmIiLCJ1c2VyX25hbWUiOiJhaG1lZGVsa2luZyIsImZpcnN0X25hbWUiOiJhaG1lZCIsImxhc3RfbmFtZSI6InNhYWQiLCJlbWFpbCI6ImFobUB5YWhvby5jb20ifSwiaWF0IjoxNjU0NDU5MzU2fQ.rl6oZ_qMO7gqnB7suB-SJHPM5AvZLxaxERzSeaq8Fbo
                   status: active
                 messageData: user deleted successfully
-
         '401':
-            $ref: '#/components/responses/UnauthorizedError'  
-        
+          $ref: '#/components/UnauthorizedError'
         default:
-            description: unable show user
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/Error'
-                example:
-                  statusCOde: 400
-                  messageData: unable delete user + error
+          description: unable show user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/Error'
+              example:
+                statusCOde: 400
+                messageData: unable delete user + error

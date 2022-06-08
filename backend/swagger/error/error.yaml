@@ -1,0 +1,7 @@
+# Error object
+type: object
+properties:
+statusCode:
+  type: integer
+messageData:
+  type: string
