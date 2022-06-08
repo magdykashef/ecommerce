@@ -89,3 +89,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+.env
+node_modules
+build
+.vscode
