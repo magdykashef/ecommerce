@@ -79,24 +79,26 @@ export class RegisterComponent implements OnInit {
         "",
         [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
       ],
+    }, {
+        validators: [this.match('password', 'confirmPassword')]
     });
   }
 
-  //   match(password: string, confirmPassword: string): ValidatorFn {
-  //     return (controls: AbstractControl) => {
-  //       const control = controls.get(password);
-  //       const checkControl = controls.get(confirmPassword);
-  //       if (checkControl.errors && !checkControl.errors.matching) {
-  //         return null;
-  //       }
-  //       if (control.value !== checkControl.value) {
-  //         controls.get(confirmPassword).setErrors({ matching: true });
-  //         return { matching: true };
-  //       } else {
-  //         return null;
-  //       }
-  //     };
-  //   }
+    match(password: string, confirmPassword: string): ValidatorFn {
+      return (controls: AbstractControl) => {
+        const control = controls.get(password);
+        const checkControl = controls.get(confirmPassword);
+        if (checkControl.errors && !checkControl.errors.matching) {
+          return null;
+        }
+        if (control.value !== checkControl.value) {
+          controls.get(confirmPassword).setErrors({ matching: true });
+          return { matching: true };
+        } else {
+          return null;
+        }
+      };
+    }
 
   onSubmit() {
     this.authService
