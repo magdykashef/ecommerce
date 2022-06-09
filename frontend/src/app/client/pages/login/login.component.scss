@@ -1,42 +1,33 @@
-.global-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 70px;
+.form-control:focus {
+  border: solid 2px #ff7d1a;
+  box-shadow: 0 0 0 2px #ff7d1a;
 }
 
-.card {
-  background-color: #202125;
-  border-radius: 15px;
-  overflow: hidden;
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }
 
-.card-body {
-  background-color: #202125;
-  outline: 0;
-  border: 0;
+input.ng-valid.ng-touched {
+  border: 1px solid #ff7d1a;
 }
 
-form {
-  padding-top: 10px;
-  font-size: 16px;
-  // margin-top: 30px;
+button {
+  background-color: #ff7d1a;
+  &:hover{
+    background-color: #ffede0;
+    border: solid 1px #ff7d1a;
+    color: #ff7d1a !important;
+  }
 }
 
-.card-title {
-  font-weight: 300;
+u,
+h4 {
+  color: #ff7d1a;
 }
 
-
-.login-form {
-  width: 430px;
-  margin: 20px;
-}
-
-.submit {
-  text-align: center;
-  color: white;
-  background: linear-gradient(to right, #f7585e 0%, #fe8b3b 100%);
-  font-size: 20px;
-  border-radius: 5px;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset !important;
 }
