@@ -7,7 +7,7 @@
     <p *ngIf="errorMessage" class="col-12 py-2 px-2 text-center alert alert-danger alert-dismissible fade show"
       role="alert">{{errorMessage | titlecase}}</p>
 
-    <form [formGroup]="loginForm" class="pb-4" (ngSubmit)="onSubmit(); submit.disabled=true">
+    <form [formGroup]="loginForm" class="pb-4" (ngSubmit)="onSubmit()">
 
       <div class="form-group grid justify-content-start mb-3">
         <label class="col-12 sm:col-3 p-0 pb-1 text-start" for="email">Email</label>
@@ -40,7 +40,7 @@
 
       <button #submit type="submit" class="submit col-12 py-2 mt-3 text-center"
         [ngStyle]="{'opacity': loginForm.invalid ? '0.7' : '1'}"
-        [disabled]="loginForm.invalid">Login</button>
+        [disabled]="loginForm.invalid || submitted">Login</button>
 
 
     </form>

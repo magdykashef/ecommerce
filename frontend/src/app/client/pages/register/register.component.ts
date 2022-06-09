@@ -17,7 +17,8 @@ import { User } from "src/app/shared/models/user";
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  errorMessage = "";
+  errorMessage: string = '';
+  submitted: boolean = false;
 
   constructor(
     private router: Router,
@@ -100,6 +101,7 @@ export class RegisterComponent implements OnInit {
     }
 
   onSubmit() {
+    this.submitted = true;
     this.authService
       .register({
         user_name: this.registerForm.value.user_name,
@@ -123,6 +125,7 @@ export class RegisterComponent implements OnInit {
         },
         (error: any) => {
           this.errorMessage = error || "please fill all fields by required";
+          this.submitted = false;
         }
       );
   }

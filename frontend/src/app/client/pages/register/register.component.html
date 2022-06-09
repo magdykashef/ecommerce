@@ -16,7 +16,7 @@
               <form
                 class="row g-2 text-dark"
                 [formGroup]="registerForm"
-                (ngSubmit)="onSubmit(); submit.disabled = true"
+                (ngSubmit)="onSubmit()"
               >
                 <div class="form-outline mb-2">
                   <label class="form-label" for="user_name">User Name</label>
@@ -208,7 +208,7 @@
                     type="submit"
                     class="btn btn-block text-white"
                     [ngStyle]="{ opacity: registerForm.invalid ? '0.8' : '1' }"
-                    [disabled]="registerForm.invalid"
+                    [disabled]="registerForm.invalid || submitted"
                   >
                     Register
                   </button>

@@ -13,7 +13,8 @@ import { User } from '../../../shared/models/user';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  errorMessage = '';
+  errorMessage: string = '';
+  submitted: boolean = false;
 
 
   constructor(
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
+    this.submitted = true;
     this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
       (user: User) => {
         localStorage.setItem('user_id', user.user_id);
@@ -56,6 +58,7 @@ export class LoginComponent implements OnInit {
       },
       (error: any) => {
         this.errorMessage = error || 'Email or Password is wrong';
+        this.submitted = false;
       }
     )
   }
