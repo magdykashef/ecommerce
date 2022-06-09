@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="col-lg-3">
       <a routerLink="/" class="navbar-brand mt-2">
-        <img src="assets/pngwing.com.png" alt="logo" />
-        <span class="fs-4 fw-bold">{{ title | titlecase  }}</span>
+        <img [src]="brand" [alt]="title" />
+        <span class="fs-4 fw-bold">{{ title | titlecase }}</span>
       </a>
     </div>
     <button
