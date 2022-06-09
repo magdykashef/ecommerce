@@ -2,11 +2,21 @@ $firstcolor: hsl(26, 100%, 55%);
 $secondcolor: hsla(26, 100%, 55%, 75%);
 nav {
   background-color: white;
+  .navbar-brand img{
+    width: 55px;
+  }
   .btn {
     background-color: $firstcolor;
     color: white;
   }
   .btn:hover {
     background-color: $secondcolor;
+  }
+  .nav-link:hover {
+    color: $firstcolor !important;
+  }
+  .form-control:focus{
+    box-shadow: 0 0 1px 1px $firstcolor !important;
+    border: 1px solid $firstcolor;
   }
 }

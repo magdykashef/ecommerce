@@ -1,13 +1,14 @@
-import { AuthService } from './../../../../security/auth.service';
-import { Component } from '@angular/core';
+import { AuthService } from "./../../../../security/auth.service";
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent {
-  title = 'Ecommerce';
+  title = "Ecommerce";
+  brand = "assets/pngwing.com.png";
   dropdownOpen: boolean = false;
   dropdownNavbar: boolean = false;
   constructor(public authService: AuthService) {}
