@@ -1,5 +1,5 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
 user_id uuid DEFAULT uuid_generate_v4(),
     email VARCHAR(50) UNIQUE,
     user_name VARCHAR(50) NOT NULL,

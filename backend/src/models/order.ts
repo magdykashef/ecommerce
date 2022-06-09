@@ -2,9 +2,11 @@ import Client from '../database';
 
 enum order_status { active, completed, cancelled }
 export type Order = {
-    id?: number;
-    order_status: order_status;
+    order_id?: number;
+    order_status?: order_status;
     user_id: string;
+    quantity: number;
+    order_date?: Date;
 }
 
 export class OrderStore {
@@ -14,7 +16,7 @@ export class OrderStore {
             
             const conn = await Client.connect();
 
-            const sql = 'SELECT * FROM orders WHERE user_id=($1)';
+            const sql = 'SELECT order_status, quantity, order_date FROM orders WHERE user_id=($1)';
 
             const result = await conn.query(sql, [id]);
 
@@ -30,7 +32,7 @@ export class OrderStore {
     async show(id: number): Promise<Order> {
         try {
             
-            const sql = 'SELECT * FROM orders WHERE _id=($1)';
+            const sql = 'SELECT order_status, quantity, order_date FROM orders WHERE order_id=($1)';
             
             const conn = await Client.connect();
         
@@ -47,11 +49,11 @@ export class OrderStore {
 
     async create(o: Order): Promise<Order> {
         try {
-            const sql = 'INSERT INTO orders (user_id, _order_status) VALUES($1,$2) RETURNING *';
+            const sql = 'INSERT INTO orders (user_id, order_status, quantity) VALUES($1,$2,$3) RETURNING *';
         
             const conn = await Client.connect();
         
-            const result = await conn.query(sql, [ o.user_id, order_status[1] ]);
+            const result = await conn.query(sql, [ o.user_id, order_status[0], o.quantity ]);
         
             const order = result.rows[0];
         
@@ -72,9 +74,9 @@ export class OrderStore {
             const connection = await Client.connect();
             
             const sql =
-                'UPDATE orders _order_status=($2) WHERE id=($1) RETURNING *';
+                'UPDATE orders SET quantity=($2) WHERE order_id=($1) RETURNING *';
         
-            const result = await connection.query(sql, [ o.id, order_status[0]]);
+            const result = await connection.query(sql, [ o.order_id, o.quantity ]);
             
             connection.release();
             
@@ -87,7 +89,7 @@ export class OrderStore {
 
     async delete(id: number): Promise<Order> {
         try {
-            const sql = 'UPDATE orders SET _order_status=($2) WHERE id=($1) RETURNING *';
+            const sql = 'UPDATE orders SET order_status=($2) WHERE order_id=($1) RETURNING *';
         
             const conn = await Client.connect();
         
