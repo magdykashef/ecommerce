@@ -11,8 +11,8 @@ import { AuthGuard } from './security/auth.guard';
 			},
 			{
 				path: 'admin', loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
-				canActivate: [AuthGuard],
-				data: { roles: ['admin'] }
+				// canActivate: [AuthGuard],
+				// data: { roles: ['admin'] }
 			},
 			{ path: '**', redirectTo: '' },
 		], { scrollPositionRestoration: 'enabled' })
