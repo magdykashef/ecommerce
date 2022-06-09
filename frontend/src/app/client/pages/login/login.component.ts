@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    for (const subscribe of this.subscriptions) {
-      subscribe.unsubscribe();
+    for (const subscription of this.subscriptions) {
+      subscription.unsubscribe();
     }
   }
 
