@@ -1,0 +1,13 @@
+$firstcolor: hsl(26, 100%, 55%);
+$secondcolor: hsla(26, 100%, 55%, 75%);
+.btn {
+  background-color: $firstcolor;
+  color: white;
+}
+.btn:hover {
+  background-color: $secondcolor;
+}
+input:focus {
+  border: unset;
+  box-shadow: unset;
+}

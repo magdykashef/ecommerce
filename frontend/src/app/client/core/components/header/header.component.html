@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid">
     <a routerLink="/" class="navbar-brand fw-bold fs-4 mt-2 col-lg-3">{{
       title | titlecase
@@ -29,7 +29,7 @@
         />
         <button
           (click)="searchProducts(search.value)"
-          class="btn btn-primary shadow-sm"
+          class="btn shadow-sm"
           type="submit"
         >
           Search
@@ -53,7 +53,7 @@
               <a
                 *ngIf="!this.authService.isLoggedIn()"
                 routerLink="/login"
-                class="w-100 btn btn-primary shadow-sm"
+                class="w-100 btn shadow-sm"
                 >Login</a
               >
             </li>
@@ -61,7 +61,7 @@
               <a
                 *ngIf="!this.authService.isLoggedIn()"
                 routerLink="/register"
-                class="w-100 btn btn-primary shadow-sm"
+                class="w-100 btn shadow-sm"
                 >Register</a
               >
             </li>
@@ -69,7 +69,7 @@
               <a
                 (click)="this.authService.logout()"
                 *ngIf="this.authService.isLoggedIn()"
-                class="w-100 btn btn-primary shadow-sm"
+                class="w-100 btn shadow-sm"
                 >Logout</a
               >
             </li>
@@ -97,7 +97,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a routerLink="/cart" class="btn btn-primary shadow-sm"
+          <a routerLink="/cart" class="btn shadow-sm"
             >Cart <i class="fa-solid fa-cart-shopping"></i
           ></a>
         </li>
