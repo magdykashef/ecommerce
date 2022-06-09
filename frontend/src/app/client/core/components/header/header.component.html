@@ -1,8 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
-    <a routerLink="/" class="navbar-brand fw-bold fs-4 mt-2 col-lg-3">{{
-      title | titlecase
-    }}</a>
+    <div class="col-lg-3">
+      <a routerLink="/" class="navbar-brand mt-2">
+        <img src="../../../../../assets/pngwing.com.png" alt="" />
+        <span class="fs-4 fw-bold">{{ title | titlecase }}</span>
+      </a>
+    </div>
     <button
       (click)="dropdownNavbar = !dropdownNavbar"
       class="navbar-toggler"
@@ -21,7 +24,7 @@
           name="search"
           id="search"
           #search
-          class="form-control me-2 w-100"
+          class="form-control me-2"
           type="search"
           placeholder="Search"
           aria-label="Search"
