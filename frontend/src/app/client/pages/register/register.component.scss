@@ -1,0 +1,34 @@
+.form-control:focus {
+  border: solid 2px #ff7d1a;
+  box-shadow: 0 0 0 2px #ff7d1a;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid #ff7d1a;
+}
+
+button {
+  background-color: #ff7d1a;
+}
+
+button:hover {
+  background-color: #ffede0;
+  border: solid 1px #ff7d1a;
+  color: #ff7d1a !important;
+}
+
+u,
+h4 {
+  color: #ff7d1a;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset !important;
+}
