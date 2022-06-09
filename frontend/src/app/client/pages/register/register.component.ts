@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   AbstractControl,
   FormBuilder,
@@ -7,24 +8,25 @@ import {
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { AuthService } from "src/app/security/auth.service";
-import { User } from "src/app/shared/models/user";
+import { AuthService } from "../../../security/auth.service";
+import { User } from "../../../shared/models/user";
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   errorMessage: string = '';
   submitted: boolean = false;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     public authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
@@ -80,54 +82,64 @@ export class RegisterComponent implements OnInit {
         [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
       ],
     }, {
-        validators: [this.match('password', 'confirmPassword')]
+      validators: [this.match('password', 'confirmPassword')]
     });
   }
 
-    match(password: string, confirmPassword: string): ValidatorFn {
-      return (controls: AbstractControl) => {
-        const control = controls.get(password);
-        const checkControl = controls.get(confirmPassword);
-        if (checkControl.errors && !checkControl.errors.matching) {
-          return null;
-        }
-        if (control.value !== checkControl.value) {
-          controls.get(confirmPassword).setErrors({ matching: true });
-          return { matching: true };
-        } else {
-          return null;
-        }
-      };
+
+  ngOnDestroy(): void {
+    for (const subscribe of this.subscriptions) {
+      subscribe.unsubscribe();
     }
+  }
+
+
+  match(password: string, confirmPassword: string): ValidatorFn {
+    return (controls: AbstractControl) => {
+      const control = controls.get(password);
+      const checkControl = controls.get(confirmPassword);
+      if (checkControl.errors && !checkControl.errors.matching) {
+        return null;
+      }
+      if (control.value !== checkControl.value) {
+        controls.get(confirmPassword).setErrors({ matching: true });
+        return { matching: true };
+      } else {
+        return null;
+      }
+    };
+  }
 
   onSubmit() {
     this.submitted = true;
-    this.authService
-      .register({
-        user_name: this.registerForm.value.user_name,
-        first_name: this.registerForm.value.first_name,
-        last_name: this.registerForm.value.last_name,
-        email: this.registerForm.value.email,
-        password: this.registerForm.value.password,
-        address: this.registerForm.value.address,
-        phone: this.registerForm.value.phone,
-      })
-      .subscribe(
-        (user: User) => {
-          localStorage.setItem("user_id", user.user_id);
-          localStorage.setItem("user_name", user.user_name);
-          localStorage.setItem("status", user.status);
-          localStorage.setItem("role", user.role);
-          localStorage.setItem("token", user.token);
-          this.router.navigate([
-            localStorage.getItem("role") === "admin" ? "/admin" : "/",
-          ]);
-        },
-        (error: any) => {
-          this.errorMessage = error || "please fill all fields by required";
-          this.submitted = false;
-        }
-      );
+    this.subscriptions.push(
+      this.authService
+        .register({
+          user_name: this.registerForm.value.user_name,
+          first_name: this.registerForm.value.first_name,
+          last_name: this.registerForm.value.last_name,
+          email: this.registerForm.value.email,
+          password: this.registerForm.value.password,
+          address: this.registerForm.value.address,
+          phone: this.registerForm.value.phone,
+        })
+        .subscribe(
+          (user: User) => {
+            localStorage.setItem("user_id", user.user_id);
+            localStorage.setItem("user_name", user.user_name);
+            localStorage.setItem("status", user.status);
+            localStorage.setItem("role", user.role);
+            localStorage.setItem("token", user.token);
+            this.router.navigate([
+              localStorage.getItem("role") === "admin" ? "/admin" : "/",
+            ]);
+          },
+          (error: any) => {
+            this.errorMessage = error || "please fill all fields by required";
+            this.submitted = false;
+          }
+        )
+    );
   }
 
   get user_name() {
