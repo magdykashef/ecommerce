@@ -69,14 +69,35 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
 const destroy = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const id = Number(req.params.id);
-        const deletedOrder = await store.delete(id);
+
+        const deletedOrder = await store.delete((parseInt(req.params.id)));
+        
         return res.json({
             statusCode: 200,
             data: { ...deletedOrder },
             messageData: 'order deleted successfully',
         });
     } catch (error) {
+        next(error);
+    }
+}
+
+const addProduct = async (req: Request, res: Response, next: NextFunction) => {
+
+    const quantity = req.body.quantity;
+    const order_id = parseInt(req.params.id);
+    const product_id = req.body.product_id;
+    
+    try {
+        
+        const addedProduct = await store.addProduct(quantity, order_id, product_id);
+
+        return res.json({
+            statusCode: 200,
+            data: { ...addedProduct },
+            messageData: 'product add successfully',
+        });
+    } catch(error) {
         next(error);
     }
 }
@@ -88,7 +109,7 @@ const orderRoutes = (app: express.Application) => {
     app.post('/orders/create/:id', verifyAuthToken, create);
     app.patch('/orders/update/:id', verifyAuthToken, update);
     app.delete('/orders/delete/:id', verifyAuthToken, destroy);
-    
+    app.post('/orders/:id/addproducts', verifyAuthToken, addProduct);
 }
 
 export default orderRoutes;
