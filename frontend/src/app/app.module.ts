@@ -129,8 +129,9 @@ import { ProductService } from './shared/services/productservice';
 import { MenuService } from './shared/services/app.menu.service';
 import { ConfigService } from './shared/services/app.config.service';
 import { AppConfigComponent } from './admin/core/components/app-config/app.config.component';
-import { TokenInterceptor } from './security/token.interceptor';
-import { ErrorInterceptor } from './security/error.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+
 
 @NgModule({
     imports: [
