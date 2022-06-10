@@ -55,11 +55,9 @@ export class OrderStore {
         
             const result = await conn.query(sql, [ o.user_id, order_status[0], o.quantity ]);
         
-            const order = result.rows[0];
-        
             conn.release();
         
-            return order;
+            return result.rows[0];
     
         } catch (error) {
             throw new Error(`Could not add new order ${o}.${(error as Error).message}`);
