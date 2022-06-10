@@ -5,7 +5,8 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -18,13 +19,13 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request)
       .pipe(
-        catchError((error) => {
-          if ([401, 403].includes(parseInt(error.statusCode))) {
+        catchError((error: HttpErrorResponse) => {
+          if ([401, 403].includes(parseInt(error.error.statusCode))) {
             // 401 Unauthorized or 403 Forbidden
             this.authService.logout();
           }
-          return throwError(error.error.message || error.error.error || error.error.statusMessage);
+          return throwError(error.error.messageData);
         })
-      )
+      );
   }
 }
