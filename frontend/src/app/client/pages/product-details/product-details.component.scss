@@ -6,7 +6,6 @@ main {
   min-height: calc(100vh - 63.58px);
   .container {
     .btn-group {
-      
       .disabled {
         width: 60px;
         color: black !important;
@@ -16,7 +15,6 @@ main {
         background-color: hsl(223, 64%, 98%);
       }
     }
-
     .btn {
       background-color: $firstcolor;
       color: white;
