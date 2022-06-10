@@ -21,7 +21,7 @@ export class IconsComponent implements OnInit {
         return value.icon.tags.indexOf('deprecate') === -1;
       });
 
-      let icons = data;
+      const icons = data;
       icons.sort((icon1, icon2) => {
         if(icon1.properties.name < icon2.properties.name)
             return -1;

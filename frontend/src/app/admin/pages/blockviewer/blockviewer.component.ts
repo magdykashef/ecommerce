@@ -47,9 +47,9 @@ export class BlockViewer {
 
   @Input() previewStyle: string;
 
-  @Input() free: boolean = true;
+  @Input() free = true;
 
-  @Input() new: boolean = false;
+  @Input() new = false;
 
   BlockView = BlockView;
 

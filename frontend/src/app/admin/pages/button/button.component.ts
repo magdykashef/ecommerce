@@ -8,7 +8,7 @@ export class ButtonComponent implements OnInit {
 
     items: MenuItem[];
 
-    loading = [false, false, false, false]
+    loading = [false, false, false, false];
 
     ngOnInit() {
         this.items = [

@@ -1,25 +1,25 @@
 import { Subscription } from 'rxjs';
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormGroup,
   ValidatorFn,
   Validators,
-} from "@angular/forms";
-import { Router } from "@angular/router";
-import { AuthService } from "../../../security/auth.service";
-import { User } from "../../../shared/models/user";
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../security/auth.service';
+import { User } from '../../../shared/models/user';
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
-  errorMessage: string = '';
-  submitted: boolean = false;
+  errorMessage = '';
+  submitted = false;
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -31,13 +31,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       this.router.navigate([
-        localStorage.getItem("role") === "admin" ? "/admin" : "/",
+        localStorage.getItem('role') === 'admin' ? '/admin' : '/',
       ]);
     }
 
     this.registerForm = this.formBuilder.group({
       user_name: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(4),
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         ],
       ],
       first_name: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(3),
@@ -53,33 +53,33 @@ export class RegisterComponent implements OnInit, OnDestroy {
         ],
       ],
       last_name: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(20),
         ],
       ],
-      email: ["", [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: [
-        "",
+        '',
         [
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(20),
-          Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$"),
+          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
         ],
       ],
       confirmPassword: [
-        "",
+        '',
         [
           Validators.required,
         ],
       ],
-      address: ["", [Validators.required, Validators.minLength(10)]],
+      address: ['', [Validators.required, Validators.minLength(10)]],
       phone: [
-        "",
-        [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
+        '',
+        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')],
       ],
     }, {
       validators: [this.match('password', 'confirmPassword')]
@@ -125,17 +125,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
         })
         .subscribe(
           (user: User) => {
-            localStorage.setItem("user_id", user.user_id);
-            localStorage.setItem("user_name", user.user_name);
-            localStorage.setItem("status", user.status);
-            localStorage.setItem("role", user.role);
-            localStorage.setItem("token", user.token);
+            localStorage.setItem('user_id', user.user_id);
+            localStorage.setItem('user_name', user.user_name);
+            localStorage.setItem('status', user.status);
+            localStorage.setItem('role', user.role);
+            localStorage.setItem('token', user.token);
             this.router.navigate([
-              localStorage.getItem("role") === "admin" ? "/admin" : "/",
+              localStorage.getItem('role') === 'admin' ? '/admin' : '/',
             ]);
           },
           (error: any) => {
-            this.errorMessage = error || "please fill all fields by required";
+            this.errorMessage = error || 'please fill all fields by required';
             this.submitted = false;
           }
         )
@@ -143,34 +143,34 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   get user_name() {
-    return this.registerForm.get("user_name");
+    return this.registerForm.get('user_name');
   }
 
   get first_name() {
-    return this.registerForm.get("first_name");
+    return this.registerForm.get('first_name');
   }
 
   get last_name() {
-    return this.registerForm.get("last_name");
+    return this.registerForm.get('last_name');
   }
 
   get email() {
-    return this.registerForm.get("email");
+    return this.registerForm.get('email');
   }
 
   get password() {
-    return this.registerForm.get("password");
+    return this.registerForm.get('password');
   }
 
   get confirmPassword() {
-    return this.registerForm.get("confirmPassword");
+    return this.registerForm.get('confirmPassword');
   }
 
   get address() {
-    return this.registerForm.get("address");
+    return this.registerForm.get('address');
   }
 
   get phone() {
-    return this.registerForm.get("phone");
+    return this.registerForm.get('phone');
   }
 }

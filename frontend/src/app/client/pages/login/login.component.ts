@@ -14,8 +14,8 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm!: FormGroup;
-  errorMessage: string = '';
-  submitted: boolean = false;
+  errorMessage = '';
+  submitted = false;
   subscriptions: Subscription[] = [];
 
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         Validators.maxLength(20),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
       ]]
-    })
+    });
   }
 
 
