@@ -6,7 +6,7 @@ export type Order = {
     order_status?: order_status;
     user_id: string;
     purchase_date?: Date;
-    delivery_date?: Date;
+    delivery_date?: Date;// after 7 day's
 }
 
 export class OrderStore {
@@ -53,7 +53,7 @@ export class OrderStore {
         
             const conn = await Client.connect();
         
-            const result = await conn.query(sql, [ o.user_id, o.order_status, o.delivery_date]);
+            const result = await conn.query(sql, [ o.user_id, order_status[0], o.delivery_date]);
         
             conn.release();
         
@@ -85,22 +85,22 @@ export class OrderStore {
         }
     }
 
-    async delete(id: number): Promise<Order> {
-        try {
-            const sql = 'DELETE FROM orders WHERE order_id=($1) RETURNING *';
+    // async delete(id: number): Promise<Order> {
+    //     try {
+    //         const sql = 'DELETE FROM orders WHERE order_id=($1) RETURNING *';
         
-            const conn = await Client.connect();
+    //         const conn = await Client.connect();
         
-            const result = await conn.query(sql, [id]);
+    //         const result = await conn.query(sql, [id]);
             
-            conn.release();
+    //         conn.release();
             
-            return result.rows[0];
+    //         return result.rows[0];
         
-        } catch (error) {
-            throw new Error(`Could not delete order ${id} because: ${(error as Error).message}`);
-        }
-    }
+    //     } catch (error) {
+    //         throw new Error(`Could not delete order ${id} because: ${(error as Error).message}`);
+    //     }
+    // }
 
     async addProduct(quantity: number, order_id: number, product_id: number):
         Promise<{ quantity: number, order_id: number, product_id: number }> {
