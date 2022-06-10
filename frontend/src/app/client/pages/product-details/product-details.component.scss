@@ -1,0 +1,53 @@
+$firstcolor: hsl(26, 100%, 55%);
+$secondcolor: hsla(26, 100%, 55%, 75%);
+main {
+  width: 100% !important;
+  background-color: white;
+  min-height: calc(100vh - 63.58px);
+  .container {
+    .btn-group {
+      
+      .disabled {
+        width: 60px;
+        color: black !important;
+      }
+      .btn {
+        color: $firstcolor;
+        background-color: hsl(223, 64%, 98%);
+      }
+    }
+
+    .btn {
+      background-color: $firstcolor;
+      color: white;
+    }
+    .btn:hover {
+      background-color: $secondcolor;
+    }
+    .btn:focus {
+      box-shadow: unset;
+    }
+    .badge {
+      background-color: hsl(25deg 100% 94%);
+      color: $firstcolor;
+    }
+    .lead {
+      font-weight: 700;
+      color: hsl(219, 9%, 45%);
+      max-width: 400px;
+    }
+    h6 {
+      color: $firstcolor;
+      font-weight: 700;
+    }
+    .slide img {
+      border-radius: 10px;
+      max-width: 90px;
+      min-width: 30px;
+      cursor: pointer;
+    }
+    #bigimg {
+      border-radius: 10px;
+    }
+  }
+}

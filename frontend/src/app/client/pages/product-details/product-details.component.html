@@ -1,0 +1,56 @@
+<main class="d-flex justify-content-center align-items-center">
+  <div class="container bg-white text-dark">
+    <div class="row">
+      <div class="row mt-5 py-4 justify-content-between">
+        <div class="col-md-4">
+          <img
+            class="img-fluid"
+            id="bigimg"
+            [src]="product.images[0]._image"
+            [alt]="product._name"
+          />
+          <div class="d-flex justify-content-between slide mt-5 mb-3">
+            <img
+              (click)="changeImg(img)"
+              *ngFor="let img of product.images"
+              class="img-fluid active"
+              [src]="img._image"
+              [alt]="product._name"
+            />
+          </div>
+        </div>
+        <div class="col-md-7">
+          <h6 class="text-uppercase">
+            {{ product._category }}
+          </h6>
+          <h1 class="fw-bolder display-1">{{ product._name }}</h1>
+          <p class="lead fw-bolder">
+            {{ product._rating }}
+            <i class="text-warning fa-solid fa-star"></i>
+          </p>
+          <p class="lead">{{ product._description }}</p>
+          <h3 *ngIf="product._discount" class="fs-2 fw-bold">
+            ${{ (product._price / 100) * product._discount }}
+            <span class="badge">{{ product._discount }}%</span> <br />
+            <del class="fs-5 text-black-50">${{ product._price }}</del>
+          </h3>
+          <h3 class="display-6 fw-bold my-4" *ngIf="!product._discount">
+            ${{ product._price }}
+          </h3>
+          <div class="d-block btn-group mb-4" role="group">
+            <button (click)="plus()" type="button" class="btn">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <button class="disabled btn">{{ count }}</button>
+            <button (click)="minus()" type="button" class="btn">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+          </div>
+          <button (click)="add()" class="btn px-3 py-2">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
