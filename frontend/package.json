@@ -8,6 +8,7 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "lint": "eslint . --ext .ts",
+        "lint:fix": "eslint . --ext .ts --fix",
         "prettier": "prettier --config .prettierrc.json src/**/*.ts --write"
     },
     "private": true,
