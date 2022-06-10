@@ -256,8 +256,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     ],
     providers: [
         // {provide: LocationStrategy, useClass: HashLocationStrategy, multi:true},
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, MenuService, ConfigService
     ],
