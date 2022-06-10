@@ -1,0 +1,10 @@
+# Unauthorized error
+
+description: Unauthorized
+content:
+  application/json:
+    schema:
+      $ref: './error.yaml'
+    example:
+      status: 401
+      message: Login error:please try again 

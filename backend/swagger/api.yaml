@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: Online Store API
+  description: It exposes a RESTful API that will be used by the frontend developer
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+
+components:
+  schemas:
+    User:
+      $ref: './schemas/user.yaml'
+
+  Error:
+    $ref: './error/error.yaml'
+    
+  securitySchemes:
+    bearerAuth:        
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  UnauthorizedError:
+    $ref: './error/unauthorized.yaml'
+      
+
+paths:
+
+#Post Request to create new User
+  /users/create:
+    $ref: './paths/user/create.yaml'
+
+# get request with id to get one user
+  /users/show/{userId}:
+    $ref: './paths/user/show.yaml'
+
+# patch request with id to update user
+  /users/update/{userId}:
+    $ref: './paths/user/update.yaml'
+
+
+# Delete request with id to Delete one user
+  /users/delete/{userId}:
+    $ref: './paths/user/delete.yaml'
