@@ -67,28 +67,11 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 
-const destroy = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const id = Number(req.params.id);
-        const deletedOrder = await store.delete(id);
-        return res.json({
-            statusCode: 200,
-            data: { ...deletedOrder },
-            messageData: 'order deleted successfully',
-        });
-    } catch (error) {
-        next(error);
-    }
-}
-
-
 const orderRoutes = (app: express.Application) => {
     app.get('/orders/index/:id', verifyAuthToken, index);
     app.get('/orders/show/:id', verifyAuthToken, show);
     app.post('/orders/create/:id', verifyAuthToken, create);
     app.put('/orders/update/:id', verifyAuthToken, update);
-    app.delete('/orders/delete/:id', verifyAuthToken, destroy);
-    
 }
 
 export default orderRoutes;
