@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+// import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -128,7 +128,7 @@ import { PhotoService } from './shared/services/photoservice';
 import { ProductService } from './shared/services/productservice';
 import { MenuService } from './shared/services/app.menu.service';
 import { ConfigService } from './shared/services/app.config.service';
-import { AppConfigComponent } from './admin/core/components/app-config/app.config.component';
+// import { AppConfigComponent } from './admin/core/components/app-config/app.config.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 

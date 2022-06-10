@@ -12,9 +12,9 @@ export class CrudComponent implements OnInit {
 
     productDialog: boolean;
 
-    deleteProductDialog: boolean = false;
+    deleteProductDialog = false;
 
-    deleteProductsDialog: boolean = false;
+    deleteProductsDialog = false;
 
     products: Product[];
 

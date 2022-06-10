@@ -13,7 +13,7 @@ import { AppConfig } from '../../../../shared/models/appconfig';
 })
 export class AppConfigComponent implements OnInit, OnDestroy {
 
-    scale: number = 14;
+    scale = 14;
 
     scales: any[] = [12, 13, 14, 15, 16];
 
@@ -63,7 +63,7 @@ export class AppConfigComponent implements OnInit, OnDestroy {
     }
 
     changeTheme(theme:string, dark:boolean){
-        let themeElement = document.getElementById('theme-css');
+        const themeElement = document.getElementById('theme-css');
         themeElement.setAttribute('href', 'assets/theme/' + theme + '/theme.css');
         this.configService.updateConfig({...this.config, ...{theme, dark}});
     }

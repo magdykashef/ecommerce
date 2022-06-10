@@ -5,7 +5,7 @@ import { CustomerService } from '../../../shared/services/customerservice';
 import { Product } from '../../../shared/models/product';
 import { ProductService } from '../../../shared/services/productservice';
 import { Table } from 'primeng/table';
-import { MessageService, ConfirmationService } from 'primeng/api'
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 @Component({
     templateUrl: './table.component.html',
@@ -49,11 +49,11 @@ export class TableComponent implements OnInit {
 
     activityValues: number[] = [0, 100];
 
-    isExpanded: boolean = false;
+    isExpanded = false;
 
-    idFrozen: boolean = false;
+    idFrozen = false;
 
-    loading:boolean = true;
+    loading = true;
 
     @ViewChild('dt') table: Table;
 

@@ -9,7 +9,7 @@ import { MenuItem } from 'primeng/api';
 export class AppTopBarComponent implements OnInit {
 
     items: MenuItem[];
-    user_name: string = '';
+    user_name = '';
 
     constructor(public admin: AdminComponent) { }
     ngOnInit(): void {

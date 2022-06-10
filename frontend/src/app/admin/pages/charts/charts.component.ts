@@ -85,14 +85,14 @@ export class ChartsComponent implements OnInit, OnDestroy {
                 {
                     data: [300, 50, 100],
                     backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56'
                     ],
                     hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56'
                     ]
                 }
             ]
@@ -108,20 +108,20 @@ export class ChartsComponent implements OnInit, OnDestroy {
                     14
                 ],
                 backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
+                    '#FF6384',
+                    '#4BC0C0',
+                    '#FFCE56',
+                    '#E7E9ED',
+                    '#36A2EB'
                 ],
                 label: 'My dataset'
             }],
             labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+                'Red',
+                'Green',
+                'Yellow',
+                'Grey',
+                'Blue'
             ]
         };
 
