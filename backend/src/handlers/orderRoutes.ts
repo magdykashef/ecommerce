@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+
 import { OrderStore } from '../models/order';
 
 import verifyAuthToken from '../middleware/verify';
@@ -22,8 +23,7 @@ const index = async (req: Request, res: Response, next: NextFunction) => {
 
 const show = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const orderId = Number(req.params.id);
-        const order = await store.show(orderId);
+        const order = await store.show(parseInt(req.params.id));
         return res.json({
             statusCode: 200,
             data: { ...order },
