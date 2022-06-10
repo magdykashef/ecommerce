@@ -86,7 +86,7 @@ const orderRoutes = (app: express.Application) => {
     app.get('/orders/index/:id', verifyAuthToken, index);
     app.get('/orders/show/:id', verifyAuthToken, show);
     app.post('/orders/create/:id', verifyAuthToken, create);
-    app.put('/orders/update/:id', verifyAuthToken, update);
+    app.patch('/orders/update/:id', verifyAuthToken, update);
     app.delete('/orders/delete/:id', verifyAuthToken, destroy);
     
 }

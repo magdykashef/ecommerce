@@ -135,7 +135,7 @@ export class ProductStore {
             const sql =
                 `UPDATE products SET (product_name=($2), category=($3), 
                 price=($4), discount=($5), description=($6), image1=($7), 
-                image2=($8), image3=($9), image4=($10), image5=($11)) WHERE product_id=($1) RETURNING * `;
+                image2=($8), image3=($9), image4=($10), image5=($11), update_date=($12)) WHERE product_id=($1) RETURNING * `;
 
             const result = await conn.query(sql, [
                 p.product_id,
@@ -149,6 +149,7 @@ export class ProductStore {
                 p.image3,
                 p.image4,
                 p.image5,
+                'CURRENT_TIMESTAMP'
             ]);
             
             conn.release();

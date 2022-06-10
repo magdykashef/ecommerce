@@ -82,7 +82,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
         return res.json({
             statusCode: 200,
             data: { ...updatedProduct },
-            messageData: 'product created successfully',
+            messageData: 'product updated successfully',
         });
 
     } catch (error) {
@@ -110,7 +110,7 @@ const productRoutes = (app: express.Application) => {
     app.get('/products/onsale', onSale);
     app.get('/products/show/:id', show);
     app.post('/products/create', verifyAuthToken, create);
-    app.put('/products/update/:id', verifyAuthToken, update);
+    app.patch('/products/update/:id', verifyAuthToken, update);
     app.delete('/products/delete/:id',verifyAuthToken, destroy);
 };
 
