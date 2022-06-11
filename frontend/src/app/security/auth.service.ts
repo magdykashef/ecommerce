@@ -12,7 +12,7 @@ import { User } from '../shared/models/user';
 export class AuthService {
 
   public user$: Observable<User>;
-  private userSubject: BehaviorSubject<User>;
+  public userSubject: BehaviorSubject<User>;
 
   constructor(
     private http: HttpClient,
@@ -31,17 +31,6 @@ export class AuthService {
       }));
   }
 
-  register(user: User): Observable<User | null> {
-    return this.http.post<User>(`${environment.api}/register`, {
-      user_name: user.user_name,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      email: user.email,
-      password: user.password,
-      address: user.address,
-      phone: user.phone
-    });
-  }
 
   isLoggedIn(): boolean {
     const user: User | null = JSON.parse(localStorage.getItem('user')) || null;
