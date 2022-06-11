@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../../security/auth.service';
 import { User } from '../../../shared/models/user';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -25,14 +26,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    private userService: UserService,
   ) { }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate([
-        localStorage.getItem('role') === 'admin' ? '/admin' : '/',
-      ]);
+      const user: User | null = JSON.parse(localStorage.getItem('user')) || null;
+      this.router.navigate([user && user.role === 'admin' ? '/admin' : '/']);
     }
 
     this.registerForm = this.formBuilder.group({
@@ -113,29 +114,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.submitted = true;
     this.subscriptions.push(
-      this.authService
-        .register({
-          user_name: this.registerForm.value.user_name,
-          first_name: this.registerForm.value.first_name,
-          last_name: this.registerForm.value.last_name,
-          email: this.registerForm.value.email,
-          password: this.registerForm.value.password,
-          address: this.registerForm.value.address,
-          phone: this.registerForm.value.phone,
-        })
+      this.userService
+        .createUser(this.registerForm.value)
         .subscribe(
           (user: User) => {
-            localStorage.setItem('user_id', user.user_id);
-            localStorage.setItem('user_name', user.user_name);
-            localStorage.setItem('status', user.status);
-            localStorage.setItem('role', user.role);
-            localStorage.setItem('token', user.token);
-            this.router.navigate([
-              localStorage.getItem('role') === 'admin' ? '/admin' : '/',
-            ]);
+            this.router.navigate([user.role === 'admin' ? '/admin' : '/']);
           },
-          (error: any) => {
-            this.errorMessage = error || 'please fill all fields by required';
+          (error: string) => {
+            this.errorMessage = error || 'something went wrong, please try again in a few minutes';
             this.submitted = false;
           }
         )
