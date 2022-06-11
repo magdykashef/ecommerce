@@ -47,5 +47,20 @@ main {
     #bigimg {
       border-radius: 10px;
     }
+    .form-select:focus{
+      box-shadow: 0 0 1px 1px $firstcolor !important;
+      border: 1px solid $firstcolor;
+    }
+    .form-control:focus {
+      box-shadow: 0 0 1px 1px $firstcolor !important;
+      border: 1px solid $firstcolor;
+    }
+    .comments {
+      border-left: 3px solid $firstcolor;
+      padding: 20px;
+    }
+    .form {
+      padding: unset;
+    }
   }
 }

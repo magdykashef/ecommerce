@@ -1,17 +1,18 @@
 <main class="d-flex justify-content-center align-items-center">
   <div class="container bg-white text-dark">
+    <!-- star product ui -->
     <div class="row">
       <div class="row mt-5 py-4 justify-content-between">
         <div class="col-md-4">
           <img
             class="img-fluid"
             id="bigimg"
-            [src]="product.images[0]._image"
+            [src]="selectedImage"
             [alt]="product._name"
           />
           <div class="d-flex justify-content-between slide mt-5 mb-3">
             <img
-              (click)="changeImg(img)"
+              (click)="selectedImage = img._image"
               *ngFor="let img of product.images"
               class="img-fluid active"
               [src]="img._image"
@@ -52,5 +53,64 @@
         </div>
       </div>
     </div>
+    <!-- end product ui -->
+    <!-- start Customer Feedback -->
+    <div class="row shadow p-5">
+      <h1>Customer Feedback</h1>
+      <!-- reviews from backend -->
+      <div *ngFor="let review of product.reviews" class="comments shadow mt-5">
+        <p class="lead fw-bolder">
+          {{ review.rating }}
+          <i class="fa-solid fa-star text-warning"></i>
+        </p>
+        <p class="fs-5">
+          {{ review.review }}
+        </p>
+        <p class="text-black-50">by {{ review.user_name }}</p>
+      </div>
+      <!-- will show after click -->
+      <div class="comments shadow mt-5 d-none add">
+        <p class="lead fw-bolder">
+          {{ rate.value }}
+          <i class="fa-solid fa-star text-warning"></i>
+        </p>
+        <p class="fs-5">
+          {{ comment.value }}
+        </p>
+        <p class="text-black-50">by Wezaa</p>
+      </div>
+      <div class="row align-items-center mt-5">
+        <div class="my-5 col-lg-1">
+          <p class="fw-bolder">
+            Rate <i class="fa-solid fa-star text-warning"></i>
+          </p>
+        </div>
+        <!-- rate select -->
+        <div class="col-lg-1">
+          <select #rate class="form-select" aria-label="Default select example">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 form">
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          #comment
+          style="height: 200px"
+        ></textarea>
+
+        <button (click)="submitFeedBack(comment.value)" class="btn my-4">
+          Submit
+        </button>
+      </div>
+    </div>
+    <!-- end Customer Feedback -->
   </div>
 </main>
+
+<!-- [disabled]="comment.value === ''" -->

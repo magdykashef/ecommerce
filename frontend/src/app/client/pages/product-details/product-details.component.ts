@@ -5,10 +5,11 @@ import { Component, OnInit, ViewChild } from "@angular/core";
   templateUrl: "./product-details.component.html",
   styleUrls: ["./product-details.component.scss"],
 })
-export class ProductDetailsComponent {
+export class ProductDetailsComponent implements OnInit {
   count = 1;
   bigArr = [];
-  // new = localStorage.setItem("cart", null);
+  selectedImage = "";
+
   product = {
     _id: 1,
     _name: "Sneakers",
@@ -24,16 +25,38 @@ export class ProductDetailsComponent {
       { _image: "assets/images/image-product-3.jpg" },
       { _image: "assets/images/image-product-4.jpg" },
     ],
+    reviews: [
+      {
+        user_id: 20,
+        user_name: "Ahmed",
+        rating: 5,
+        review:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium",
+      },
+      {
+        user_id: 20,
+        user_name: "Mahmoud",
+        rating: 4,
+        review:
+          "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium",
+      },
+    ],
   };
+
+  ngOnInit(): void {
+    this.selectedImage = this.product.images[0]._image;
+  }
 
   minus() {
     this.count <= 1 ? (this.count = 1) : (this.count -= 1);
     this.product.quantity = this.count;
   }
+
   plus() {
     this.count += 1;
     this.product.quantity = this.count;
   }
+
   add() {
     if (this.count > 0) {
       if (JSON.parse(localStorage.getItem("cart")) === null) {
@@ -52,7 +75,9 @@ export class ProductDetailsComponent {
       // }
     }
   }
-  changeImg(props) {
-    document.getElementById("bigimg").setAttribute("src", props._image);
+
+  submitFeedBack(comment: string) {
+    // if (comment === "") return;
+    document.querySelector(".add").classList.replace("d-none", "d-block");
   }
 }
