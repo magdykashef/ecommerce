@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     if (this.authService.isLoggedIn()) {
-      this.router.navigate([localStorage.getItem('role') === 'admin' ? '/admin' : '/']);
+      const user: User | null = JSON.parse(localStorage.getItem('user')) || null;
+      this.router.navigate([user && user.role === 'admin' ? '/admin' : '/']);
     }
 
     this.loginForm = this.formBuilder.group({
