@@ -1,6 +1,7 @@
+import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { User } from '../shared/models/user';
@@ -10,34 +11,41 @@ import { User } from '../shared/models/user';
 })
 export class AuthService {
 
+  public user$: Observable<User>;
+  private userSubject: BehaviorSubject<User>;
+
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
-
-  login(email: string, password: string): Observable<User | null> {
-    return this.http.post<User>(`${environment.api}/login`, { email, password });
+  ) {
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')) || null);
+    this.user$ = this.userSubject.asObservable();
+    this.userSubject.next(JSON.parse(localStorage.getItem('user')) || null);
   }
 
-  register(user:User): Observable<User | null>{
+  login(loginData: { email: string, password: string }): Observable<User | null> {
+    return this.http.post<User>(`${environment.api}/authenticate`, loginData)
+      .pipe(tap((user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+      }));
+  }
+
+  register(user: User): Observable<User | null> {
     return this.http.post<User>(`${environment.api}/register`, {
-        user_name: user.user_name,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        password: user.password,
-        address: user.address,
-        phone: user.phone
+      user_name: user.user_name,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      password: user.password,
+      address: user.address,
+      phone: user.phone
     });
-}
+  }
 
   isLoggedIn(): boolean {
-    return !!(
-      localStorage.getItem('user_id') && 
-      localStorage.getItem('user_name') && 
-      localStorage.getItem('status') && 
-      localStorage.getItem('role') && 
-      localStorage.getItem('token'));
+    const user: User | null = JSON.parse(localStorage.getItem('user')) || null;
+    return !!(user && user.user_id && user.user_name && user.role && user.status && user.token);
   }
 
   logout() {
@@ -46,10 +54,7 @@ export class AuthService {
   }
 
   private resetCurrentUser() {
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('status');
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
   }
 }

@@ -56,17 +56,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.submitted = true;
     this.subscriptions.push(
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
+      this.authService.login(this.loginForm.value).subscribe(
         (user: User) => {
-          localStorage.setItem('user_id', user.user_id);
-          localStorage.setItem('user_name', user.user_name);
-          localStorage.setItem('status', user.status);
-          localStorage.setItem('role', user.role);
-          localStorage.setItem('token', user.token);
-          this.router.navigate([localStorage.getItem('role') === 'admin' ? '/admin' : '/']);
+          this.router.navigate([user.role === 'admin' ? '/admin' : '/']);
         },
         (error: any) => {
-          this.errorMessage = error || 'Email or Password is wrong';
+          this.errorMessage = error || 'email or Password is wrong';
           this.submitted = false;
         }
       )
