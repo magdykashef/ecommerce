@@ -49,10 +49,12 @@
         </li>
         <li
           (click)="dropdownOpen = !dropdownOpen"
-          class="nav-item dropdown me-1"
+          class="nav-item dropdown mx-1"
         >
           <a class="nav-link dropdown-toggle" role="button">
-            <i class="fa-solid fa-user me-1"></i> Account
+            <i class="fa-solid fa-user mx-1"></i>
+            <span *ngIf="!user_name">Account</span>
+            <span *ngIf="user_name">{{user_name}}</span>
           </a>
           <ul
             [ngStyle]="{
