@@ -1,5 +1,6 @@
-import { AuthService } from './../../../../security/auth.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './../../../../security/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,10 @@ export class HeaderComponent {
   dropdownNavbar = false;
   user_name = '';
 
-  constructor(public authService: AuthService) { }
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(
@@ -25,8 +29,7 @@ export class HeaderComponent {
     );
   }
 
-
-  searchProducts(search: string) {
-    console.log(search);
+  searchProducts(searchKeyword: string) {
+    this.router.navigate(['/products'], { queryParams: { searchKeyword }, queryParamsHandling: 'preserve' });
   }
 }

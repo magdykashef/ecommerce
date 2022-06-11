@@ -19,7 +19,7 @@
       }"
       class="collapse navbar-collapse justify-content-between"
     >
-      <form class="d-flex col-lg-7 mt-2" (submit)="$event.preventDefault()">
+      <form class="d-flex col-lg-7 mt-2" (submit)="$event.preventDefault(); searchProducts(search.value)">
         <input
           name="search"
           id="search"
