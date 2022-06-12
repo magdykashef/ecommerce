@@ -64,14 +64,6 @@ describe('Category Model', () => {
                 await deleteCategory(createdCategory.category_id as number)
             })
 
-            it('Must return a certain category by name',async () => {
-                const createdCategory:Category = await createCategory(category);
-                const categorFilter = await store.filter(createdCategory.category_name);
-
-                expect(categorFilter).toEqual(createdCategory)
-                await deleteCategory(createdCategory.category_id as number)
-            })
-
             it('Must delete a certain category', async () => {
                 const createdCategory:Category = await createCategory(category);
                 await deleteCategory(createdCategory.category_id as number)
