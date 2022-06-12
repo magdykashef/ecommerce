@@ -1,0 +1,125 @@
+:host {
+  width: 100%;
+}
+
+section {
+  background: white;
+  color: black;
+  font-family: 'Poppins', sans-serif;
+
+  .product-wrapper {
+    overflow: hidden;
+    padding: 0 1rem 1rem 1rem;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 5px;
+    transition: all 200ms ease;
+
+    &:hover {
+      box-shadow: 0px 0px 15px rgba(33, 33, 33, .4);
+      transform: scale(1.03);
+    }
+  }
+
+  .product-card {
+    border-radius: 5px;
+    height: 400px;
+    padding: 2rem 2rem 0 2rem;
+    background: white;
+    color: black;
+
+    .image-wrapper {
+      height: auto;
+
+      .image {
+        display: inline-block;
+        height: auto;
+        background-position: center;
+        background-repeat: none;
+        background-size: cover;
+      }
+
+    }
+
+    .title {
+      font-size: 1.1rem;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      height: fit-content;
+    }
+
+    .old-price,
+    .discount {
+      font-size: 1.2rem;
+      color: #777373;
+    }
+
+    .discount {
+      display: inline;
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #ff7d1a;
+      background-color: #feefde;
+      padding: 4px;
+    }
+
+    .description {
+      color: #323030;
+    }
+  }
+
+  .add-btn {
+    width: 83%;
+    color: white;
+    background-color: #ff7d1a;
+    border-radius: 5px;
+    outline: 0;
+    border: 0;
+    font-size: 1.2rem;
+  }
+
+  .my-pagination ::ng-deep .ngx-pagination {
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+
+    .current {
+      background: #ff7d1a;
+    }
+
+    .ng-star-inserted {
+      &:hover {
+        background-color: #ff7d1a;
+
+        &:first-child,
+        &:last-child {
+          background-color: #ff7d1a !important;
+        }
+      }
+    }
+
+    .pagination-previous {
+      a {
+        color: black;
+        opacity: 1 !important;
+      }
+    }
+
+    .pagination-next {
+      a {
+        color: black;
+        opacity: 1 !important;
+      }
+    }
+
+    .pagination-previous.ng-star-inserted.disabled {
+      opacity: 0.3;
+    }
+
+    .pagination-next.ng-star-inserted.disabled {
+      opacity: 0.3;
+    }
+  }
+}
