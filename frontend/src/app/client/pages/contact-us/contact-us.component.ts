@@ -52,10 +52,10 @@ export class ContactUsComponent implements OnInit, OnDestroy {
         .subscribe(
           (res: { [key: string]: string }) => {
             this.contactUsForm.reset();
-            this.statusMessage = res.statusMessage;
+            this.statusMessage = res.messageData;
           },
-          (res: { [key: string]: string }) => {
-            this.statusMessage = res.statusMessage;
+          (error: string) => {
+            this.statusMessage = error;
             this.submitted = false;
           }
         )
