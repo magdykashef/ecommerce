@@ -1,0 +1,134 @@
+<section class="bg-image">
+  <div class="mask d-flex justify-content-center align-items-center bg-white">
+    <div class="container row d-flex  justify-content-center">
+      <div class=" d-flex justify-content-center align-items-center flex-wrap m-4">
+        <!--  -->
+        <div
+          class="card col-xs-12 col-sm-6 col-md-6 col-lg-5 col-xl-4 justify-content-center align-self-stretch contact-info text-white"
+        >
+          <h3 class="mb-5">Contact us</h3>
+
+          <ul class="list list-none position-relative">
+            <li class="mb-4 pl-4">
+              <span class="position-absolute"
+                ><i class="fas fa-envelope"></i
+              ></span>
+              support@<wbr>ecommerce<wbr>.com
+            </li>
+            <li class="mb-4 pl-4">
+              <span class="position-absolute"
+                ><i class="fas fa-phone"></i
+              ></span>
+              (020)-1616161616
+            </li>
+            <li class="mb-4 pl-4">
+              <span class="position-absolute"
+                ><i class="fas fa-map-marker-alt"></i
+              ></span>
+              Ecommerce Inc. <br />
+              100 github st. <br />
+              Cairo.
+            </li>
+          </ul>
+        </div>
+        <!--  -->
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-5 align-self-stretch">
+          <div class="card bg-white contact-form">
+            <div>
+              <h6 class="text-uppercase fw-bold text-center b-3">
+                We will be happy to receive your feedback or contact us.
+              </h6>
+
+              <p *ngIf="statusMessage" class="mb-1 text-center text-danger">
+                {{ statusMessage | titlecase }}
+              </p>
+
+              <form
+                class="row g-2 text-dark"
+                [formGroup]="contactUsForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <div class="form-outline mb-2">
+                  <label class="form-label" for="email">Email</label>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    id="email"
+                    class="form-control form-control-sm"
+                    placeholder="Your Email"
+                  />
+
+                  <div
+                    *ngIf="email.touched && email.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="email.errors?.required">is required.</p>
+                    <p *ngIf="email.errors?.['email']">
+                      must be a valid email.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline">
+                  <label class="form-label" for="Phone">Phone</label>
+                  <input
+                    type="tel"
+                    formControlName="phone"
+                    id="Phone"
+                    class="form-control form-control-sm"
+                    placeholder="Your Phone"
+                  />
+
+                  <div
+                    *ngIf="phone.touched && phone.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="phone.errors?.required">is required.</p>
+                    <p *ngIf="phone.errors?.['pattern']">
+                      length must be numbers and must be 11 numbers.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="form-outline">
+                  <label class="form-label" for="message">message</label>
+                  <textarea
+                    type="text"
+                    rows="8"
+                    formControlName="message"
+                    id="message"
+                    class="form-control form-control-sm"
+                    placeholder="Your message"
+                  ></textarea>
+
+                  <div
+                    *ngIf="message.touched && message.invalid"
+                    class="text-danger"
+                  >
+                    <p *ngIf="message.errors?.required">is required.</p>
+                    <p
+                      *ngIf="message.errors?.['maxLength'] || message.errors?.['minlength']"
+                    >
+                      length mmust be between 50 & 500 characters.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-block text-white"
+                    [ngStyle]="{ opacity: contactUsForm.invalid ? '0.8' : '1' }"
+                    [disabled]="contactUsForm.invalid || submitted"
+                  >
+                    Send
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

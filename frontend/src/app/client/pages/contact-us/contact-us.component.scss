@@ -1,0 +1,60 @@
+.contact-info {
+  border-radius: 15px 0 0 15px;
+  background: hsl(26, 100%, 55%);
+}
+
+.contact-form {
+  border-radius: 0 15px 15px 0;
+}
+
+.list span.position-absolute {
+  left: 0;
+  word-wrap: break-word;
+}
+
+.list-none {
+  list-style: none;
+}
+
+.form-control:focus {
+  border: solid 2px #ff7d1a;
+  box-shadow: 0 0 0 2px #ff7d1a;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input.ng-valid.ng-touched,
+textarea.ng-valid.ng-touched {
+  border: 1px solid #ff7d1a;
+}
+
+button {
+  background-color: #ff7d1a;
+}
+
+button:hover {
+  background-color: #ffede0;
+  border: solid 1px #ff7d1a;
+  color: #ff7d1a !important;
+}
+
+u,
+h6 {
+  color: #ff7d1a;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset !important;
+}
+
+@media only screen and (max-width: 575px) {
+   .card {
+    border-radius: 15px;
+    }
+  }
