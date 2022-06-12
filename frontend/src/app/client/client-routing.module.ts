@@ -27,6 +27,38 @@ const routes: Routes = [
         path:'products',
         loadChildren: ()=> import('./pages/products/products.module').then((m)=> m.ProductsModule)
       },
+      {
+        path:'product-details',
+        loadChildren: ()=> import('./pages/product-details/product-details.module').then((m)=> m.ProductDetailsModule)
+      },
+      {
+        path:'cart',
+        loadChildren: ()=> import('./pages/cart/cart.module').then((m)=> m.CartModule)
+      },
+      {
+        path:'checkout',
+        loadChildren: ()=> import('./pages/checkout/checkout.module').then((m)=> m.CheckoutModule)
+      },
+      {
+        path:'error',
+        loadChildren: ()=> import('./pages/error/error.module').then((m)=> m.ErrorModule)
+      },
+      {
+        path:'orders',
+        loadChildren: ()=> import('./pages/orders/orders.module').then((m)=> m.OrdersModule)
+      },
+      {
+        path:'payment',
+        loadChildren: ()=> import('./pages/payment/payment.module').then((m)=> m.PaymentModule)
+      },
+      {
+        path:'receipt',
+        loadChildren: ()=> import('./pages/receipt/receipt.module').then((m)=> m.ReceiptModule)
+      },
+      {
+        path:'profile',
+        loadChildren: ()=> import('./pages/profile/profile.module').then((m)=> m.ProfileModule)
+      },
     ]
   }
 ];
