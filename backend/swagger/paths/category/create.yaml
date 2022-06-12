@@ -30,7 +30,7 @@ post:
                     type: string
                     
 
-              message:
+              messageData:
                 type: string
                 description: category created successfully
 

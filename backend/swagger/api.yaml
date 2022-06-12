@@ -10,9 +10,11 @@ components:
   schemas:
     User:
       $ref: './schemas/user.yaml'
+    Category:
+      $ref: './schemas/.yaml'      
 
   Error:
-    $ref: './error/error.yaml'
+      $ref: './error/error.yaml'
     
   securitySchemes:
     bearerAuth:        
@@ -23,7 +25,6 @@ components:
   UnauthorizedError:
     $ref: './error/unauthorized.yaml'
       
-
 paths:
 
 #Post Request to create new User
@@ -38,7 +39,22 @@ paths:
   /users/update/{userId}:
     $ref: './paths/user/update.yaml'
 
-
 # Delete request with id to Delete one user
   /users/delete/{userId}:
     $ref: './paths/user/delete.yaml'
+
+  #Post Request to create new category
+  /categories/create:
+    $ref: './paths/category/create.yaml'
+
+# get request with id to get one category
+  /categories/show/{:categoryId}:
+    $ref: './paths/category/show.yaml'
+
+# patch request with id to update category
+  /categories/update/{:categoryId}:
+    $ref: './paths/category/update.yaml'
+
+# Delete request with id to Delete one category
+  /categories/delete/{categoryId}:
+    $ref: './paths/category/delete.yaml'

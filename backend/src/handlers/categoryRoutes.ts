@@ -34,7 +34,7 @@ const show =async (req:Request, res:Response, Next: NextFunction) => {
     }
 };
 
-const filter =async (req:Request, res:Response, Next: NextFunction) => {
+/*const filter =async (req:Request, res:Response, Next: NextFunction) => {
     try {
         const name = req.params.name as unknown as string
         if(name === undefined) {
@@ -51,7 +51,7 @@ const filter =async (req:Request, res:Response, Next: NextFunction) => {
     } catch (error) {
         Next(error)
     }
-};
+};*/
 
 /*const filter = async (req:Request, res:Response, Next:NextFunction) => {
     try {
@@ -118,7 +118,7 @@ const destroy = async (req: Request, res: Response, Next:NextFunction) => {
 export default function categoriesRoutes (app: Application) {
     app.get('/categories/index', index)
     app.get('/categories/show/:id', show)
-    app.get('/categories/filter/:name', filter)
+    //app.get('/categories/filter/:name', filter)
     app.post('/categories/create', create)
     app.put('/categories/update/:id', update)
     app.delete('/categories/delete/:id', destroy) 

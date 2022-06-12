@@ -32,7 +32,7 @@ export class CategoryStore {
         }
     }
 
-    async filter(category_name:string):Promise<Category>{
+    /*async filter(category_name:string):Promise<Category>{
         try {
             const conn = await Client.connect();
             const sql = 'SELECT * FROM categories WHERE category_name=($1)';
@@ -42,9 +42,9 @@ export class CategoryStore {
         } catch (error) {
             throw new Error(`unable to get the category: ${(error as Error).message}`);
         }
-    }
-    /*
-    async filter(category_id:number, category_name:string):Promise<Category | undefined>{
+    }*/
+    
+    /* filter(category_id:number, category_name:string):Promise<Category []| undefined>{
         try {
             if(category_id) {
                 const conn = await Client.connect();
