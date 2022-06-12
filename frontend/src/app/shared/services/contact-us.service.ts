@@ -1,17 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ContactUsForm } from '../models/contact-us-form';
 
-@Injectable()
-export class ContactUs {
+@Injectable({
+  providedIn: 'root'
+})
+export class ContactUsService {
 
-    constructor(
-        private http: HttpClient,
-      ) { }
+  constructor(private http: HttpClient) { }
 
-
-    sendContactUs(form : ContactUsForm) {
-        return this.http.post(`${environment.api}/contact-us`, (form.email, form.message, form.phone));
-    }
+  sendContactUs(contactUsForm: ContactUsForm): Observable<{ [key: string]: string }> {
+    return this.http.post<{ [key: string]: string }>(`${environment.api}/contact-us`, contactUsForm);
+  }
 }
