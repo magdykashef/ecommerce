@@ -29,10 +29,7 @@ get:
 
                   category_name:
                     type: string
-
-                  product_id:
-                    type: number
-
+                    
               messageData:
                 type: string
                 description: category retrieved successfully
@@ -40,7 +37,6 @@ get:
             statusCode: 200
             data:
               category_name: phones
-              product_id: 1
             messageData: category retrieved successfully
 
     '401':

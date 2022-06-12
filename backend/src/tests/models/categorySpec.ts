@@ -3,8 +3,19 @@ import Client from '../../database'
 
 const store = new CategoryStore();
 
+
 describe('Category Model', () => {
     describe('Testing CRUD methods', ()=>{
+        const category: Category = {
+            category_name:'pens'
+        }
+        async function createCategory(category:Category) {
+            return store.create(category)
+        }
+        async function deleteCategory (category_id: number) {
+            return store.delete(category_id)
+        }
+
         it('MUST have an index method',()=> {
             expect(store.index).toBeDefined();
         })
@@ -24,66 +35,50 @@ describe('Category Model', () => {
         it('MUST have a delete method', () => {
             expect(store.delete).toBeDefined();
         })
-    })
 
-    const category:Category = {
-        category_name: 'pens',
-        product_id:'1'
-    };
-    let categoryid: unknown
-    let cato: Category;  
-    beforeAll(async () => {
-        const ctegory = await store.create(category);
-        categoryid = ctegory.category_id;
-    });
-    
-    afterAll(async () => {
-        const conn = await Client.connect();
-        const sql = 'DELETE FROM categories';
+        describe('Test category logic',async () => {
+            it('Must create a new category',async () => {
+                const createdCategory:Category = await createCategory(category)
 
-        await conn.query(sql)
-        conn.release();
-    })
+                expect(createdCategory).toEqual({
+                    category_id:createdCategory.category_id,
+                    ...category
+                })
 
-    it('MUST create a new category',async () => {
-        cato = await store.create({
-            category_name: 'cds',
-            product_id:'1'
-        } as Category);
+                await deleteCategory(createdCategory.category_id as number)
+            })
 
-        expect(cato).toEqual({
-            category_name: 'cds',
-            product_id:'1'
-        } as unknown as Category)
-    })
+            it('Must get all categories', async()=> {
+                const createdCategory:Category = await createCategory(category);
+                const categories = await store.index();
+                expect(categories).toEqual([createdCategory])
 
-    it('Must return All categories',async () => {
-        const categories = await store.index();
-        expect(categories.length).toEqual(2)
-    })
+                await deleteCategory(createdCategory.category_id as number)
+            })
 
-    it('Must return a certain category by id',async () => {
-        const categoryByID = await store.show(cato.category_id as number);
-        expect(categoryByID.category_name).toEqual(cato.category_name);
-    })
+            it('Must return a certain category by ID',async () => {
+                const createdCategory:Category = await createCategory(category);
+                const categorShow = await store.show(createdCategory.category_id as number);
 
-    it('Must return a category by name',async () => {
-        const categoryByName = await store.filter(cato.category_name as string);
-        expect(categoryByName.category_name).toEqual(cato.category_name);
-    })
+                expect(categorShow).toEqual(createdCategory)
+                await deleteCategory(createdCategory.category_id as number)
+            })
 
-    it('Must update the category',async () => {
-        const updateCategory = await store.update({
-            category_id:categoryid as number,
-            category_name: 'phones',
-            product_id:'1'
-        });
-        expect(updateCategory.category_id).toEqual(categoryid as number);
-        expect(updateCategory.category_name).toEqual('phones')
-    })
+            it('Must return a certain category by name',async () => {
+                const createdCategory:Category = await createCategory(category);
+                const categorFilter = await store.filter(createdCategory.category_name);
 
-    it('Must delete a category',async () => {
-        const deleteCategory = await store.delete(categoryid as number);
-        expect(deleteCategory.category_id).toEqual(categoryid as number)
+                expect(categorFilter).toEqual(createdCategory)
+                await deleteCategory(createdCategory.category_id as number)
+            })
+
+            it('Must delete a certain category', async () => {
+                const createdCategory:Category = await createCategory(category);
+                await deleteCategory(createdCategory.category_id as number)
+
+                const categoryList = await store.index()
+                expect(categoryList).toEqual([])
+            })
+        })
     })
 })

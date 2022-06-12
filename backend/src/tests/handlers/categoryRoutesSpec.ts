@@ -9,7 +9,6 @@ const request = supertest(app);
 describe('Category API endpoints', ()=> {
     const category = {
         category_name: 'phones',
-        product_id:'1'
     } as Category;
 
     beforeAll(async () => {
@@ -25,22 +24,20 @@ describe('Category API endpoints', ()=> {
     })
 
     describe('Test our api crud methods', () => {
-        it('Must create a new category',async () => {
+        /*it('Must create a new category',async () => {
             const response = await request
             .post('categories/create')
             .set('Content-type', 'application/json')
             .send({
                 category_name:'mobiles',
-                product_id:'1'
             } as Category)
 
             expect(response.status).toBe(200);
-            const {category_name, product_id} = response.body.data
+            const {category_name} = response.body.data
             expect(category_name).toBe('mobiles');
-            expect(product_id).toBe('1')
-        })
+        })*/
 
-        it('Must retun all categories', async()=> {
+        it('Must get to the end point of all categories', async()=> {
             const response = await request
             .get('/categories/index')
             .set('Content-type', 'application/json')
@@ -48,22 +45,20 @@ describe('Category API endpoints', ()=> {
             expect(response.body.data.length).toBe(1)
         })
 
-        it('Must get a category by id', async () => {
+        it('Must get to the end point of category by id', async () => {
             const res = await request
             .get(`/categories/show/${category.category_id}`)
             .set('Content-type', 'application/json')
             expect(res.status).toBe(200);
             expect(res.body.data.category_name).toBe('phones');
-            expect(res.body.data.product_id).toBe('1');
         });
 
-        it('Must get a category by name', async () => {
+        it('Must get to the end point of a category by name', async () => {
             const res = await request
             .get(`/categories/filter/${category.category_name}`)
             .set('Content-type', 'application/json')
             expect(res.status).toBe(200);
             expect(res.body.data.category_name).toBe('phones');
-            expect(res.body.data.product_id).toBe('1');
         });
 
     })

@@ -33,8 +33,6 @@ delete:
                   category_name:
                     type: string
                     
-                  product_id:
-                    type: number
 
               message:
                 type: string
@@ -45,7 +43,6 @@ delete:
             data:
               category_id: 1
               category_name: phones
-              product_id: 1
             messageData: category deleted successfully
 
     '401':

@@ -29,8 +29,6 @@ post:
                   category_name:
                     type: string
                     
-                  product_id:
-                    type: number
 
               message:
                 type: string
@@ -41,7 +39,6 @@ post:
             data:
               category_id: 1
               category_name: phones
-              product_id: 1
             messageData: category created successfully
             
     '400':

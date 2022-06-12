@@ -39,9 +39,6 @@ patch:
                   category_name:
                     type: string
                     
-                  product_id:
-                    type: number
-                  
               message:
                 type: string
                 description: category updated successfully
@@ -51,7 +48,6 @@ patch:
             data:
               category_id: 1
               category_name: mobiles
-              product_id: 1
             messageData: category updated successfully
             
     '400':

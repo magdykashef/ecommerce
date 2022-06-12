@@ -2,8 +2,7 @@ import Client from "../database";
 
 export type Category = {
     category_id?: number;
-    category_name: string ;
-    product_id?: string
+    category_name: string 
 };
 
 export class CategoryStore {
@@ -70,10 +69,9 @@ export class CategoryStore {
     async create(c:Category): Promise<Category>{
         try {
             const conn = await Client.connect();
-            const sql = 'INSERT INTO categories (category_name, product_id) VALUES($1, $2) RETURNING category_id, category_name, product_id';
+            const sql = 'INSERT INTO categories (category_name) VALUES($1) RETURNING category_id, category_name';
             const result = await conn.query(sql, [
-                c.category_name,
-                c.product_id 
+                c.category_name
                 ])
             const order = result.rows[0];
             conn.release()
@@ -89,11 +87,10 @@ export class CategoryStore {
         try {
             const conn = await Client.connect();
             const sql =
-            'UPDATE categories SET category_name=($2), product_id=($3) WHERE category_id=($1) RETURNING *';
+            'UPDATE categories SET category_name=($2) WHERE category_id=($1) RETURNING *';
             const result = await conn.query(sql, [
                 c.category_id,
-                c.category_name,
-                c.product_id
+                c.category_name
             ]);
 
             conn.release();
