@@ -22,7 +22,11 @@ const routes: Routes = [
       {
         path:'contact-us',
         loadChildren: ()=> import('./pages/contact-us/contact-us.module').then((m)=> m.ContactUsModule)
-      }
+      },
+      {
+        path:'products',
+        loadChildren: ()=> import('./pages/products/products.module').then((m)=> m.ProductsModule)
+      },
     ]
   }
 ];
