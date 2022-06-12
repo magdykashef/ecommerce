@@ -1,0 +1,64 @@
+<section class="row col-12 justify-content-center p-0 m-0">
+
+  <h1 class="col-12 text-center my-5 py-5">{{ heading | titlecase }}</h1>
+
+  <div class="products-container grid col-12 justify-content-center align-items-start">
+    <div class="grid col-11 justify-content-start">
+      <div class="product-container m-0 p-5 col-12 sm:col-6 lg:col-4 xl:col-3"
+        *ngFor="let product of products | paginate: { itemsPerPage: 20, currentPage }; let index = index">
+        <div class="product-wrapper row justify-content-center">
+          <a class="product-card grid justify-content-center" [routerLink]="['/product-details', product.id]">
+
+            <!-- start product image -->
+            <div class="image-wrapper col-12 grid justify-content-center">
+              <img class="w-5 sm:w-6 lg:w-7 image" [src]="product?.images[0]" [alt]="product?.name">
+            </div>
+            <!-- end product image -->
+
+
+            <!-- start product name -->
+            <h2 class="title col-12 text-start m-0">{{ product?.name | titlecase }}</h2>
+            <!-- end product name -->
+
+
+            <!-- start product final price -->
+            <h2 class="price col-12 text-start m-0">{{ product?.price - product?.discount | currency:'USD' }}</h2>
+            <!-- end product final price -->
+
+
+
+            <!-- start product discount and precentage -->
+            <div class="grid col-12 justify-content-start align-items-center" style="height: fit-content;">
+              <span class="old-price text-start mr-2" style="text-decoration: line-through;">{{ product?.discount |
+                currency:'USD'}}</span>
+              <span class="discount text-start m-0">-{{ (product?.discount * 100 ) / product?.price}}%</span>
+            </div>
+            <!-- end product discount and precentage -->
+
+
+            <!-- start product description -->
+            <p class="description mx-1">{{ ellipsisText(product?.description) }}</p>
+            <!-- end product description -->
+
+
+          </a>
+
+          <!-- start add to cart button -->
+          <button class="add-btn p-3 mt-3 text-center" (click)="onAddToCardClick(product.id)"> Add to
+            Cart</button>
+          <!-- end add to cart button -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- start pagination-controls -->
+  <div class="mt-1 mb-5 col-12 row justify-content-center align-items-center">
+    <pagination-controls class="my-pagination" (pageChange)="currentPage = $event"
+      previousLabel="Previous" nextLabel="Next">
+    </pagination-controls>
+  </div>
+  <!-- end pagination-controls -->
+
+</section>
