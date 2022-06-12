@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ContactUsForm } from '../models/contact-us-form';
 
-@Injectable()
-export class ContactUs {
+@Injectable({
+    providedIn: 'root'
+  })
+export class ContactUsService {
 
     constructor(
         private http: HttpClient,
