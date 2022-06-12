@@ -3,6 +3,7 @@
     <!-- star product ui -->
     <div class="row">
       <div class="row mt-5 py-4 justify-content-between">
+        <!-- images -->
         <div class="col-md-4">
           <img
             class="img-fluid"
@@ -20,6 +21,7 @@
             />
           </div>
         </div>
+        <!-- images description -->
         <div class="col-md-7">
           <h6 class="text-uppercase">
             {{ product._category }}
@@ -31,12 +33,15 @@
           </p>
           <p class="lead">{{ product._description }}</p>
           <h3 *ngIf="product._discount" class="fs-2 fw-bold">
-            ${{ (product._price / 100) * product._discount }}
-            <span class="badge">{{ product._discount }}%</span> <br />
-            <del class="fs-5 text-black-50">${{ product._price }}</del>
+            {{ (product._price / 100) * product._discount | currency: "USD" }}
+            <span class="badge">{{ product._discount }}%</span>
+            <br />
+            <del class="fs-5 text-black-50">{{
+              product._price | currency: "USD"
+            }}</del>
           </h3>
           <h3 class="display-6 fw-bold my-4" *ngIf="!product._discount">
-            ${{ product._price }}
+            {{ product._price | currency: "USD" }}
           </h3>
           <div class="d-block btn-group mb-4" role="group">
             <button (click)="plus()" type="button" class="btn">
@@ -59,58 +64,55 @@
       <h1>Customer Feedback</h1>
       <!-- reviews from backend -->
       <div *ngFor="let review of product.reviews" class="comments shadow mt-5">
-        <p class="lead fw-bolder">
-          {{ review.rating }}
-          <i class="fa-solid fa-star text-warning"></i>
-        </p>
+        <!-- {{ review.rating }}
+          <i class="fa-solid fa-star text-warning"></i> -->
+        <div class="d-flex justify-content-start align-items-center mb-2">
+          <div *ngFor="let item of [].constructor(review.rating)">
+            <i class="fa-solid fa-star text-warning me-2"></i>
+          </div>
+        </div>
+
         <p class="fs-5">
           {{ review.review }}
         </p>
         <p class="text-black-50">by {{ review.user_name }}</p>
       </div>
       <!-- will show after click -->
-      <div class="comments shadow mt-5 d-none add">
-        <p class="lead fw-bolder">
-          {{ rate.value }}
-          <i class="fa-solid fa-star text-warning"></i>
-        </p>
+      <div #showComment class="comments shadow mt-5 add d-none">
+        <div class="d-flex justify-content-start align-items-center mb-2">
+          <div *ngFor="let item of [].constructor(5)">
+            <i class="fa-solid fa-star text-warning me-2"></i>
+          </div>
+        </div>
         <p class="fs-5">
           {{ comment.value }}
         </p>
         <p class="text-black-50">by Wezaa</p>
       </div>
-      <div class="row align-items-center mt-5">
-        <div class="my-5 col-lg-1">
-          <p class="fw-bolder">
-            Rate <i class="fa-solid fa-star text-warning"></i>
-          </p>
-        </div>
-        <!-- rate select -->
-        <div class="col-lg-1">
-          <select #rate class="form-select" aria-label="Default select example">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-12 form">
-        <textarea
-          class="form-control"
-          placeholder="Leave a comment here"
-          #comment
-          style="height: 200px"
-        ></textarea>
 
-        <button (click)="submitFeedBack(comment.value)" class="btn my-4">
-          Submit
-        </button>
-      </div>
+      <form>
+        <div class="mt-5">
+          <p class="fw-bolder lead mt-5 fs-2">Leave a review</p>
+          <!-- rate select -->
+          <div class="d-flex justify-content-start mb-4">
+            <ngx-star-rating [id]="'rating'"></ngx-star-rating>
+          </div>
+
+          <div class="col-12 form">
+            <textarea
+              class="form-control"
+              placeholder="Leave a comment here"
+              #comment
+              style="height: 200px"
+            ></textarea>
+
+            <button class="btn my-4">Submit</button>
+          </div>
+        </div>
+      </form>
     </div>
     <!-- end Customer Feedback -->
   </div>
 </main>
 
-<!-- [disabled]="comment.value === ''" -->
+<!-- (click)="submitFeedBack(comment.value)" -->

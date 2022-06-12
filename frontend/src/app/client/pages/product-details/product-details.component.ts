@@ -1,11 +1,20 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ElementRef,
+} from "@angular/core";
 
 @Component({
   selector: "app-product-details",
   templateUrl: "./product-details.component.html",
   styleUrls: ["./product-details.component.scss"],
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements  OnInit {
+  // @ViewChild("showComment") showComment: ElementRef<HTMLDivElement>;
+  // ngAfterViewInit() {} AfterViewInit,
+
   count = 1;
   bigArr = [];
   selectedImage = "";
@@ -76,8 +85,8 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  submitFeedBack(comment: string) {
-    // if (comment === "") return;
-    document.querySelector(".add").classList.replace("d-none", "d-block");
-  }
+  // submitFeedBack(comment: string) {
+  //   // if (comment === "") return;
+  //   this.showComment.nativeElement.classList.replace("d-none", "d-block");
+  // }
 }
