@@ -1,0 +1,18 @@
+# Category schema
+
+type: object
+required:
+- category_name
+- product_id
+properties:
+category_id:
+  type: number
+  format: SERIAL PRIMARY KEY
+
+category_name:
+  type: string
+  maxLength: 64
+
+example:
+  category_name: phones
+  type: string

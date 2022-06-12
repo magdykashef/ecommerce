@@ -1,0 +1,53 @@
+# get request with id to get one category
+get:
+  summary: Returns a category by ID.
+  parameters:
+    - name: categoryID
+      in: path
+      required: true
+      description: The ID of the order to return.
+      schema:
+        type: string
+        format: SERIAL PRIMARY KEY
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            type: json object
+            properties:
+              statusCode: 
+                type: string
+                description: 200
+              data: 
+                type: object
+
+                properties:
+
+                  category_name:
+                    type: string
+                    
+              messageData:
+                type: string
+                description: category retrieved successfully
+          example:
+            statusCode: 200
+            data:
+              category_name: phones
+            messageData: category retrieved successfully
+
+    '401':
+        $ref: '../../error/unauthorized.yaml'  
+    
+    default:
+        description: unable to show category
+        content:
+          application/json:
+            schema:
+              $ref: '../../error/error.yaml'
+            example:
+              statusCOde: 400
+              messageData: unable to show category + error
