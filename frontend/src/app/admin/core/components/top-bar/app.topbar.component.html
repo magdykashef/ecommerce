@@ -1,5 +1,5 @@
 <div class="layout-topbar">
-    <a class="layout-topbar-logo" routerLink="">
+    <a class="layout-topbar-logo">
         Ecommerce
     </a>
 
@@ -11,13 +11,14 @@
         <i class="pi pi-ellipsis-v"></i>
     </a>
 
-    <div *ngIf="user_name" class="layout-topbar-menu"
-        [ngClass]="{'layout-topbar-menu-mobile-active':admin.topMenuActive}">
+    <div *ngIf="authService.isLoggedIn() && user_name" class="layout-topbar-menu"
+        [ngClass]="{'layout-topbar-menu-mobile-active' : admin.topMenuActive}">
 
         <i class="pi pi-user"></i>
-        <span style="margin: 0 0 0 5px;">{{ username | titlecase}}</span>
+        <span style="margin: 0 0 0 5px;">
+            {{ user_name | titlecase }}</span>
 
-        <a class="p-link layout-topbar-button">
+        <a class="p-link layout-topbar-button" (click)="authService.logout()">
             <i class="pi pi-power-off"></i>
             <span>logout</span>
         </a>
