@@ -1,0 +1,59 @@
+# get request with id to get one category
+get:
+  summary: Returns a category by name.
+  parameters:
+    - name: categoryNAME
+      in: path
+      required: true
+      description: The NAME of the order to return.
+      schema:
+        type: string
+        format: VARCHAR
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            type: json object
+            properties:
+              statusCode: 
+                type: string
+                description: 200
+              data: 
+                type: object
+
+                properties:
+                  category_id:
+                      type: number
+                  category_name:
+                    type: string
+
+                  product_id:
+                    type: number
+
+              messageData:
+                type: string
+                description: category retrieved successfully
+          example:
+            statusCode: 200
+            data:
+              category_id: 1
+              category_name: phones
+              product_id: 1
+            messageData: category retrieved successfully
+
+    '401':
+        $ref: '../../error/unauthorized.yaml'  
+    
+    default:
+        description: unable to show category
+        content:
+          application/json:
+            schema:
+              $ref: '../../error/error.yaml'
+            example:
+              statusCOde: 400
+              messageData: unable to show category + error

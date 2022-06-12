@@ -1,0 +1,63 @@
+#Post Request to create new category
+post:
+  summary: Create new category.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/category.yaml'
+
+  responses:
+    '200':
+      description: ok
+      content:
+        application/json:
+          schema:
+            type: json object
+            properties:
+              statusCode: 
+                type: integer
+              data: 
+                type: object
+
+                properties:
+                  category_id:
+                    type: number
+                    format: SERIAL PRIMARY KEY
+
+                  category_name:
+                    type: string
+                    
+                  product_id:
+                    type: number
+
+              message:
+                type: string
+                description: category created successfully
+
+          example:
+            statusCode: 200
+            data:
+              category_id: 1
+              category_name: phones
+              product_id: 1
+            messageData: category created successfully
+            
+    '400':
+        description: unable to create category
+        content:
+          application/json:
+            schema:
+              $ref: '../../error/error.yaml'
+            example:
+              statusCode: 400
+    '500':
+        description: internal server error
+        content:
+          application/json:
+            schema:
+              $ref: '../../error/error.yaml'
+            example:
+              statusCode: 500
+              messageData: unable to create category + error

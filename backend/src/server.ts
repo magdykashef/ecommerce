@@ -17,6 +17,7 @@ import { errorMiddleware } from './middleware/errorMiddleware';
 import config from './config';
 
 import userRoutes from './handlers/userRoutes';
+import categoriesRoutes from './handlers/categoryRoutes';
 
 const swaggerJsDoc = YAML.load('./docs/api.yaml');
 
@@ -49,6 +50,7 @@ app.get('/', (_req: Request, res: Response) => {
 });
 
 userRoutes(app);
+categoriesRoutes(app);
 
 app.use(errorMiddleware);
 
