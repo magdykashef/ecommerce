@@ -10,13 +10,14 @@ import { Subscription } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  heading = 'all products';
+  heading = 'All Products';
   product_id: string;
   products: Product[];
   queryParam: string;
   currentPage = 1;
   searchKeyword = '';
   category_id = '';
+  category_name = '';
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -28,6 +29,7 @@ export class ProductsComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((queryParam) => {
       this.searchKeyword = queryParam.searchKeyword || '';
       this.category_id = queryParam.category_id || '';
+      this.category_name = queryParam.category_name || '';
     });
 
     if (!this.searchKeyword && !this.category_id) {
@@ -979,10 +981,10 @@ export class ProductsComponent implements OnInit {
     }
 
     if (this.searchKeyword !== '') {
+      this.category_id = '';
+      this.heading = 'Search for ';
       //TODO get products by category
       /*
-      this.category_id = '';
-      this.heading = 'You searched for: ' + this.searchKeyword;
       this.subscriptions.push(
       this.productService.searchProducts(this.searchKeyword).subscribe(
         (products: Product[]) => this.products = products,
@@ -992,14 +994,19 @@ export class ProductsComponent implements OnInit {
       */
     }
 
+    if (this.category_name !== '') {
+      this.heading = 'Products in category ';
+    }
+
     if (this.category_id !== '') {
+      this.searchKeyword = '';
       //TODO get products by searchKeyword
       /*
-      this.searchKeyword = '';
-      this.heading = 'products in category: ' + this.category_id;
       this.subscriptions.push(
         this.productService.searchProducts(this.category_id).subscribe(
-        (products: Product[]) => this.products = products,
+        (products: Product[]) => {
+          this.products = products;
+        }
         (error: string) => redirect to error page
         )
       );
