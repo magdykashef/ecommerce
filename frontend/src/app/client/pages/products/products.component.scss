@@ -77,6 +77,12 @@ section {
     outline: 0;
     border: 0;
     font-size: 1.2rem;
+    &:hover{
+      background-color: hsla(26, 100%, 55%, 75%);
+    }
+    &:active{
+      background-color: #ff7d1a;
+    }
   }
 
   .my-pagination ::ng-deep .ngx-pagination {
