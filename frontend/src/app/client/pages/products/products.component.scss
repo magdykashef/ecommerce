@@ -22,8 +22,8 @@ section {
 
   .product-card {
     border-radius: 5px;
-    height: 400px;
-    padding: 2rem 2rem 0 2rem;
+    height: 430px;
+    padding: 2rem 0.5rem 0 0.5rem;
     background: white;
     color: black;
 
@@ -58,7 +58,7 @@ section {
     .discount {
       display: inline;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       color: #ff7d1a;
       background-color: #feefde;
       padding: 4px;
@@ -70,7 +70,7 @@ section {
   }
 
   .add-btn {
-    width: 83%;
+    width: calc(100% - 1rem);
     color: white;
     background-color: #ff7d1a;
     border-radius: 5px;
