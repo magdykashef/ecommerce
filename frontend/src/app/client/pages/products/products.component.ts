@@ -982,6 +982,7 @@ export class ProductsComponent implements OnInit {
       //TODO get products by category
       /*
       this.category_id = '';
+      this.heading = 'You searched for: ' + this.searchKeyword;
       this.subscriptions.push(
       this.productService.searchProducts(this.searchKeyword).subscribe(
         (products: Product[]) => this.products = products,
@@ -995,6 +996,7 @@ export class ProductsComponent implements OnInit {
       //TODO get products by searchKeyword
       /*
       this.searchKeyword = '';
+      this.heading = 'products in category: ' + this.category_id;
       this.subscriptions.push(
         this.productService.searchProducts(this.category_id).subscribe(
         (products: Product[]) => this.products = products,
@@ -1005,8 +1007,11 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  ellipsisText(text: string) {
-    return text.substring(0, 50) + '...';
+  ellipsisText(text: string, length: number) {
+    if (text.length > length) {
+      return text.substring(0, length) + '...';
+    }
+    return text;
   }
 
   onAddToCardClick(product_id: string) {

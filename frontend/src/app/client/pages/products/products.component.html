@@ -17,7 +17,7 @@
 
 
             <!-- start product name -->
-            <h2 class="title col-12 text-start m-0">{{ product?.name | titlecase }}</h2>
+            <h2 class="title col-12 text-start m-0">{{ ellipsisText(product?.name, 60) | titlecase }}</h2>
             <!-- end product name -->
 
 
@@ -37,7 +37,7 @@
 
 
             <!-- start product description -->
-            <p class="description mx-1">{{ ellipsisText(product?.description) }}</p>
+            <p class="description mx-1">{{ ellipsisText(product?.description, 50) }}</p>
             <!-- end product description -->
 
 
