@@ -64,6 +64,19 @@ describe('Category Model', () => {
                 await deleteCategory(createdCategory.category_id as number)
             })
 
+            it('Must update a certain category',async () => {
+                const createdCategory:Category = await createCategory(category)
+                const categoryUpdate = await store.update({
+                    category_id: createdCategory.category_id as number,
+                    category_name: 'phones'
+                })
+                expect(categoryUpdate).toEqual({
+                    category_id: createdCategory.category_id as number,
+                    category_name: 'phones'
+                })
+                await deleteCategory(createdCategory.category_id as number)
+            })
+
             it('Must delete a certain category', async () => {
                 const createdCategory:Category = await createCategory(category);
                 await deleteCategory(createdCategory.category_id as number)

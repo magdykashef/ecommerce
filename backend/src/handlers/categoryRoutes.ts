@@ -53,26 +53,6 @@ const show =async (req:Request, res:Response, Next: NextFunction) => {
     }
 };*/
 
-/*const filter = async (req:Request, res:Response, Next:NextFunction) => {
-    try {
-        const id = req.params.id as unknown as number
-        const name = req.params.name as unknown as string
-
-        if(id === undefined || name === undefined) {
-            res.status(400)
-            res.send('Missing required parameter :id or name.')
-            return false
-        }
-        const category:Category []| undefined = await store.filter(id, name)
-        res.json({
-            statusCode: 200,
-            data: category,
-            messageData: 'category has retrieved successfully',})
-    } catch (error) {
-        Next(error)
-    }
-}*/
-
 const create = async (req: Request, res: Response, Next:NextFunction) => {
     try {
         const newCategory = await store.create(req.body);
@@ -108,8 +88,12 @@ const destroy = async (req: Request, res: Response, Next:NextFunction) => {
             res.send("Missing required parameter :id.")
             return false
             }
-        const result = await store.delete(id)        
-        res.send(`category with id ${id} successfully deleted.`)
+        const category = await store.delete(id)        
+        res.send({
+            statusCode: 200,
+            data: category,
+            messageData: 'category deleted successfully',
+        })
     }catch(error){
         Next(error)
     }
