@@ -24,18 +24,6 @@ describe('Category API endpoints', ()=> {
     })
 
     describe('Test our api crud methods', () => {
-        /*it('Must create a new category',async () => {
-            const response = await request
-            .post('categories/create')
-            .set('Content-type', 'application/json')
-            .send({
-                category_name:'mobiles',
-            } as Category)
-
-            expect(response.status).toBe(200);
-            const {category_name} = response.body.data
-            expect(category_name).toBe('mobiles');
-        })*/
 
         it('Must get to the end point of all categories', async()=> {
             const response = await request
@@ -52,14 +40,5 @@ describe('Category API endpoints', ()=> {
             expect(res.status).toBe(200);
             expect(res.body.data.category_name).toBe('phones');
         });
-
-        it('Must get to the end point of a category by name', async () => {
-            const res = await request
-            .get(`/categories/filter/${category.category_name}`)
-            .set('Content-type', 'application/json')
-            expect(res.status).toBe(200);
-            expect(res.body.data.category_name).toBe('phones');
-        });
-
     })
 })
