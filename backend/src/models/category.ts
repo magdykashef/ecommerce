@@ -44,27 +44,6 @@ export class CategoryStore {
         }
     }*/
     
-    /* filter(category_id:number, category_name:string):Promise<Category []| undefined>{
-        try {
-            if(category_id) {
-                const conn = await Client.connect();
-                const sql = 'SELECT * FROM categories WHERE category_id=($1)';
-                const result = await conn.query(sql, [category_id])    
-                conn.release();
-                return result.rows[0]
-            } 
-            if(category_name) {
-                const conn = await Client.connect();
-                const sql = 'SELECT * FROM categories WHERE category_name=($1)';
-                const result = await conn.query(sql, [category_name])    
-                conn.release();
-                return result.rows[0]
-            } 
-            }catch (error) {
-            throw new Error(`unable to get the category: ${(error as Error).message}`);
-        }
-    }*/
-
     //Create a category
     async create(c:Category): Promise<Category>{
         try {
@@ -105,14 +84,14 @@ export class CategoryStore {
         try {      
             const conn = await Client.connect();
             const sql =
-                'DELETE FROM categories WHERE category_id=($1)';
+                'DELETE FROM categories WHERE category_id=($1) RETURNING category_id, category_name';
             const result = await conn.query(sql, [id]);        
             const category = result.rows[0];
         
             conn.release();
             return category;
-            } catch (error) {
+        } catch (error) {
             throw new Error(`unable delete category: ${(error as Error).message}`);
-            }
         }
+    }
 }
