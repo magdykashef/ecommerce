@@ -18,6 +18,7 @@ import config from './config';
 
 import userRoutes from './handlers/userRoutes';
 import categoriesRoutes from './handlers/categoryRoutes';
+import productReviewsRoutes from './handlers/productReviewRoute';
 
 const swaggerJsDoc = YAML.load('./docs/api.yaml');
 
@@ -51,7 +52,7 @@ app.get('/', (_req: Request, res: Response) => {
 
 userRoutes(app);
 categoriesRoutes(app);
-
+productReviewsRoutes(app)
 app.use(errorMiddleware);
 
 app.use((_req: Request, res: Response) => {
